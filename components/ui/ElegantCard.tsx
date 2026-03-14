@@ -3,7 +3,8 @@
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface ElegantCardProps extends Omit<HTMLMotionProps<"div">, "animate"> {
+interface ElegantCardProps extends Omit<HTMLMotionProps<"div">, "animate" | "children"> {
+  children?: React.ReactNode;
   gold?:    boolean;   // subtle gold accent
   hover?:   boolean;   // lift on hover
   glow?:    boolean;   // soft ambient glow
@@ -43,11 +44,13 @@ export function ElegantCard({
       )}
       {...props}
     >
-      {/* Subtle top accent for gold cards */}
-      {gold && (
-        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-      )}
-      {children}
+      <>
+        {/* Subtle top accent for gold cards */}
+        {gold && (
+          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+        )}
+        {children}
+      </>
     </motion.div>
   );
 }
