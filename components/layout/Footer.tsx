@@ -15,10 +15,11 @@ export function Footer() {
         margin: "0 auto",
         padding: "80px 40px 60px",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr",
-        gap: "40px",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gap: "48px",
         alignItems: "start",
       }}>
+
         {/* Brand */}
         <div>
           <p style={{
@@ -108,9 +109,12 @@ export function Footer() {
         padding: "20px 40px",
         borderTop: "1px solid rgba(26,24,20,0.08)",
         display: "flex",
+        flexWrap: "wrap",
         justifyContent: "space-between",
         alignItems: "center",
+        gap: "16px",
       }}>
+
         <p style={{ fontSize: "10px", letterSpacing: "0.14em", color: "#8A7F78", textTransform: "uppercase" }}>
           © 2026 Hair Classic. All Rights Reserved.
         </p>

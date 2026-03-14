@@ -114,10 +114,10 @@ export default function LandingPage() {
           backgroundPosition: "center 25%",
         }} />
         {/* Very subtle dark veil */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.38) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.42) 100%)" }} />
 
         {/* Centered hero text */}
-        <div style={{ position: "relative", textAlign: "center", padding: "0 24px" }}>
+        <div style={{ position: "relative", textAlign: "center", padding: "0 24px", width: "100%" }}>
           <motion.p
             variants={fadeUp} initial="hidden" animate="visible" custom={0}
             style={{
@@ -137,7 +137,7 @@ export default function LandingPage() {
             variants={fadeUp} initial="hidden" animate="visible" custom={1}
             style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: "clamp(52px, 7vw, 88px)",
+              fontSize: "clamp(40px, 7vw, 88px)",
               fontWeight: 300,
               color: "#FFFFFF",
               lineHeight: 1.05,
@@ -186,21 +186,17 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           SPLIT 1 — "The Art of Precision" — text left / image right
           ════════════════════════════════════════════════════════ */}
-      <section style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        minHeight: "90vh",
-      }}>
+      <section className="grid-split">
         {/* Left — text */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="split-text-pad"
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "100px 80px",
             background: "#ECEAE4",
           }}
         >
@@ -209,7 +205,7 @@ export default function LandingPage() {
           </motion.p>
           <motion.h2 variants={fadeUp} custom={1} style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(36px, 3.5vw, 52px)",
+            fontSize: "clamp(30px, 3.5vw, 52px)",
             fontWeight: 300,
             color: "#1A1814",
             lineHeight: 1.15,
@@ -238,24 +234,21 @@ export default function LandingPage() {
           backgroundImage: `url("https://images.unsplash.com/photo-1527799820374-87891c6b5b37?w=900&auto=format&fit=crop&q=80")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "600px",
+          minHeight: "400px",
         }} />
       </section>
 
       {/* ════════════════════════════════════════════════════════
           SPLIT 2 — "Purity of Material" — image left / text right
           ════════════════════════════════════════════════════════ */}
-      <section style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        minHeight: "90vh",
-      }}>
+      <section className="grid-split">
         {/* Left — image */}
         <div style={{
           backgroundImage: `url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&auto=format&fit=crop&q=80")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "600px",
+          minHeight: "400px",
+          order: 0,
         }} />
 
         {/* Right — text on slightly darker bg */}
@@ -263,12 +256,13 @@ export default function LandingPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="split-text-pad"
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "100px 80px",
             background: "#E5E2DB",
+            order: 1,
           }}
         >
           <motion.p variants={fadeUp} custom={0} className="label" style={{ marginBottom: "28px" }}>
@@ -276,7 +270,7 @@ export default function LandingPage() {
           </motion.p>
           <motion.h2 variants={fadeUp} custom={1} style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(36px, 3.5vw, 52px)",
+            fontSize: "clamp(30px, 3.5vw, 52px)",
             fontWeight: 300,
             color: "#1A1814",
             lineHeight: 1.15,
@@ -304,11 +298,11 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           SERVICES — header + row of services
           ════════════════════════════════════════════════════════ */}
-      <section style={{ padding: "120px 40px", background: "#ECEAE4" }}>
+      <section className="section-pad" style={{ background: "#ECEAE4" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
 
-          {/* Section header with VIEW ALL on the right — exactly like Aura "New Arrivals" */}
-          <div style={{
+          {/* Section header */}
+          <div className="section-header-row" style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
@@ -321,7 +315,7 @@ export default function LandingPage() {
               variants={fadeUp} custom={0}
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(32px, 3vw, 44px)",
+                fontSize: "clamp(28px, 3vw, 44px)",
                 fontWeight: 300,
                 color: "#1A1814",
               }}
@@ -333,12 +327,8 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* 4-col service list — minimal, editorial */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "0",
-          }}>
+          {/* 4-col service list — responsive */}
+          <div className="grid-services">
             {[
               { name: "Balayage & Colour", price: "From £280", desc: "Hand-painted luminosity tailored to your tone and lifestyle.", img: "https://images.unsplash.com/photo-1527799820374-87891c6b5b37?w=500&auto=format&fit=crop&q=80" },
               { name: "Precision Cut",     price: "From £95",  desc: "Architectural cuts sculpted to your face shape and bone structure.", img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&auto=format&fit=crop&q=80" },
@@ -351,23 +341,22 @@ export default function LandingPage() {
                 style={{
                   borderLeft: i === 0 ? "1px solid rgba(26,24,20,0.08)" : "none",
                   borderRight: "1px solid rgba(26,24,20,0.08)",
-                  padding: "0",
                   cursor: "pointer",
                 }}
               >
                 {/* Image */}
                 <div style={{
-                  height: "320px",
+                  height: "280px",
                   backgroundImage: `url("${img}")`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   transition: "transform 0.7s ease",
                   overflow: "hidden",
                 }} />
-                <div style={{ padding: "24px 24px 32px" }}>
+                <div style={{ padding: "20px 20px 28px" }}>
                   <p style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: "17px",
+                    fontSize: "16px",
                     fontWeight: 400,
                     color: "#1A1814",
                     marginBottom: "6px",
@@ -401,18 +390,8 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           STATS BAND — minimal, numbers + labels
           ════════════════════════════════════════════════════════ */}
-      <section style={{
-        background: "#1A1814",
-        padding: "80px 40px",
-      }}>
-        <div style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "40px",
-          textAlign: "center",
-        }}>
+      <section className="section-pad-sm" style={{ background: "#1A1814" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }} className="grid-stats">
           {[
             { num: "4,200+", label: "Satisfied Clients" },
             { num: "12+",    label: "Years of Mastery" },
@@ -424,7 +403,7 @@ export default function LandingPage() {
             >
               <p style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(36px, 4vw, 52px)",
+                fontSize: "clamp(32px, 4vw, 52px)",
                 fontWeight: 300,
                 color: "#F5F4F0",
                 marginBottom: "8px",
@@ -449,7 +428,7 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           TESTIMONIALS — minimal, editorial
           ════════════════════════════════════════════════════════ */}
-      <section style={{ padding: "120px 40px", background: "#E5E2DB" }}>
+      <section className="section-pad" style={{ background: "#E5E2DB" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
 
           {/* Header */}
@@ -466,7 +445,7 @@ export default function LandingPage() {
               variants={fadeUp}
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(32px, 3vw, 44px)",
+                fontSize: "clamp(28px, 3vw, 44px)",
                 fontWeight: 300,
                 color: "#1A1814",
               }}
@@ -476,7 +455,7 @@ export default function LandingPage() {
           </div>
 
           {/* 3 testimonials */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "40px" }}>
+          <div className="grid-3">
             {[
               { quote: "I've been to salons across Paris and New York. Hair Classic is simply the finest experience I've had.", name: "Amelia W.", service: "Balayage & Precision Cut" },
               { quote: "My hair has never felt this healthy. The AI consultation understood exactly what I wanted before I even arrived.", name: "Priya K.", service: "Keratin + AI Consult" },
@@ -487,7 +466,7 @@ export default function LandingPage() {
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.12}
                 style={{
                   background: "#ECEAE4",
-                  padding: "48px 40px",
+                  padding: "40px 32px",
                   borderTop: "2px solid rgba(26,24,20,0.10)",
                 }}
               >
@@ -530,17 +509,13 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           FAQ — image left / accordion right (Aura split style)
           ════════════════════════════════════════════════════════ */}
-      <section style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        minHeight: "80vh",
-      }}>
+      <section className="grid-split">
         {/* Left — image */}
         <div style={{
           backgroundImage: `url("https://images.unsplash.com/photo-1519699564370-04a4813a2b9a?w=900&auto=format&fit=crop&q=80")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "500px",
+          minHeight: "400px",
         }} />
 
         {/* Right — FAQ */}
@@ -548,9 +523,9 @@ export default function LandingPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="faq-pad"
           style={{
             background: "#ECEAE4",
-            padding: "100px 80px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -561,7 +536,7 @@ export default function LandingPage() {
           </motion.p>
           <motion.h2 variants={fadeUp} custom={1} style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(28px, 2.5vw, 40px)",
+            fontSize: "clamp(24px, 2.5vw, 40px)",
             fontWeight: 300,
             color: "#1A1814",
             marginBottom: "48px",
@@ -577,8 +552,7 @@ export default function LandingPage() {
       {/* ════════════════════════════════════════════════════════
           FINAL CTA — centered, editorial
           ════════════════════════════════════════════════════════ */}
-      <section style={{
-        padding: "160px 40px",
+      <section className="section-pad" style={{
         textAlign: "center",
         background: "#1A1814",
       }}>
@@ -601,7 +575,7 @@ export default function LandingPage() {
           </motion.p>
           <motion.h2 variants={fadeUp} custom={1} style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(40px, 5vw, 68px)",
+            fontSize: "clamp(36px, 5vw, 68px)",
             fontWeight: 300,
             color: "#F5F4F0",
             lineHeight: 1.1,

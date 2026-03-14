@@ -172,3 +172,114 @@ body {
 .text-taupe           { color: var(--text-mid) !important; }
 .text-gold            { color: var(--gold) !important; }
 .border-linen-deep    { border-color: var(--border) !important; }
+
+/* ── Responsive grid helpers ─────────────────────────────── */
+.grid-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+
+.grid-services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.grid-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+/* Section padding helpers */
+.section-pad {
+  padding: 120px 40px;
+}
+
+.section-pad-sm {
+  padding: 80px 40px;
+}
+
+.split-text-pad {
+  padding: 100px 80px;
+}
+
+.faq-pad {
+  padding: 100px 80px;
+}
+
+/* Nav desktop/mobile */
+.nav-desktop { display: flex; }
+.nav-mobile-only { display: none; }
+.nav-header-pad { padding: 0 40px; }
+
+/* ── Phone / tablet overrides ──────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .nav-desktop { display: none !important; }
+  .nav-mobile-only { display: flex !important; }
+  .nav-header-pad { padding: 0 20px !important; }
+
+  /* Grid: all become single column on mobile */
+  .grid-split {
+    grid-template-columns: 1fr !important;
+    min-height: unset !important;
+  }
+
+  .grid-services {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 !important;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid-stats {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Padding */
+  .section-pad {
+    padding: 60px 20px !important;
+  }
+
+  .section-pad-sm {
+    padding: 48px 20px !important;
+  }
+
+  .split-text-pad {
+    padding: 60px 24px !important;
+  }
+
+  .faq-pad {
+    padding: 60px 24px !important;
+  }
+
+  /* Testimonials 3-col -> 1-col */
+  .grid-3 > * {
+    width: 100% !important;
+  }
+
+  /* Section header row — allow wrapping on small screens */
+  .section-header-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-services {
+    grid-template-columns: 1fr !important;
+  }
+}
+

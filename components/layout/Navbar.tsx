@@ -28,24 +28,27 @@ export function Navbar() {
   return (
     <>
       {/* ── Main bar ── */}
-      <header style={{
-        position: "fixed",
-        top: 0, left: 0, right: 0,
-        zIndex: 100,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 40px",
-        height: "64px",
-        backgroundColor: "rgba(236,234,228,0.92)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(26,24,20,0.08)",
-        fontFamily: "'Jost', system-ui, sans-serif",
-      }}>
-        {/* LEFT — MENU or nav links */}
+      <header
+        className="nav-header-pad"
+        style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0,
+          zIndex: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "64px",
+          backgroundColor: "rgba(236,234,228,0.92)",
+          backdropFilter: "blur(16px)",
+          borderBottom: "1px solid rgba(26,24,20,0.08)",
+          fontFamily: "'Jost', system-ui, sans-serif",
+        }}
+      >
+        {/* LEFT — MENU button (always visible, toggles side panel) */}
         <div style={{ display: "flex", alignItems: "center", gap: "32px", flex: 1 }}>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Open menu"
             style={{
               fontSize: "10px",
               fontWeight: 500,
@@ -56,13 +59,25 @@ export function Navbar() {
               border: "none",
               cursor: "pointer",
               fontFamily: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              padding: "4px",
             }}
           >
-            MENU
+            {/* Hamburger icon on mobile, text on desktop */}
+            <span className="nav-desktop" style={{ fontSize: "10px", letterSpacing: "0.22em", textTransform: "uppercase" }}>
+              MENU
+            </span>
+            <span className="nav-mobile-only" style={{ flexDirection: "column", gap: "5px" }}>
+              <span style={{ display: "block", width: "22px", height: "1.5px", background: "#1A1814" }} />
+              <span style={{ display: "block", width: "16px", height: "1.5px", background: "#1A1814" }} />
+              <span style={{ display: "block", width: "22px", height: "1.5px", background: "#1A1814" }} />
+            </span>
           </button>
 
-          {/* Desktop nav links — shown inline */}
-          <nav style={{ display: "flex", gap: "28px" }} className="nav-desktop">
+          {/* Desktop nav links — hidden on mobile */}
+          <nav className="nav-desktop" style={{ gap: "28px" }}>
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href} style={{
                 fontSize: "10px",
@@ -99,8 +114,8 @@ export function Navbar() {
           Hair Classic
         </Link>
 
-        {/* RIGHT — Sign In / Book */}
-        <div style={{ display: "flex", alignItems: "center", gap: "28px", flex: 1, justifyContent: "flex-end" }}>
+        {/* RIGHT — Sign In / Book (desktop only shows BOOK) */}
+        <div style={{ display: "flex", alignItems: "center", gap: "20px", flex: 1, justifyContent: "flex-end" }}>
           {user ? (
             <Link href="/dashboard" style={{
               fontSize: "10px", fontWeight: 500, letterSpacing: "0.18em",
@@ -110,7 +125,8 @@ export function Navbar() {
             </Link>
           ) : (
             <>
-              <Link href="/auth/login" style={{
+              {/* Sign In — hidden on small mobile to save space */}
+              <Link href="/login" className="nav-desktop" style={{
                 fontSize: "10px", fontWeight: 400, letterSpacing: "0.18em",
                 textTransform: "uppercase", color: "#4A4440", textDecoration: "none",
               }}>
@@ -119,9 +135,10 @@ export function Navbar() {
               <Link href="/booking" style={{
                 fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em",
                 textTransform: "uppercase", color: "#1A1814", textDecoration: "none",
-                padding: "10px 20px",
+                padding: "8px 16px",
                 border: "1px solid rgba(26,24,20,0.25)",
                 transition: "all 0.3s",
+                whiteSpace: "nowrap",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.background = "#1A1814";
@@ -139,7 +156,7 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ── Slide-over menu ── */}
+      {/* ── Slide-over menu (works on all screen sizes) ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -160,10 +177,11 @@ export function Navbar() {
               transition={{ type: "tween", duration: 0.4, ease: [0.4, 0, 0.1, 1] }}
               style={{
                 position: "fixed", top: 0, left: 0, bottom: 0,
-                width: "360px", zIndex: 300,
+                width: "min(360px, 85vw)", zIndex: 300,
                 background: "#ECEAE4",
-                padding: "64px 48px",
+                padding: "64px 40px",
                 display: "flex", flexDirection: "column", gap: "0",
+                overflowY: "auto",
               }}
             >
               <button
@@ -192,7 +210,7 @@ export function Navbar() {
                   <Link key={href} href={href} onClick={() => setMenuOpen(false)} style={{
                     display: "block",
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: "32px",
+                    fontSize: "clamp(24px, 6vw, 32px)",
                     fontWeight: 300,
                     color: "#1A1814",
                     textDecoration: "none",
@@ -207,13 +225,13 @@ export function Navbar() {
                 ))}
               </div>
 
-              <div style={{ marginTop: "auto" }}>
+              <div style={{ marginTop: "auto", paddingBottom: "24px" }}>
                 {user ? (
                   <Link href="/dashboard" onClick={() => setMenuOpen(false)} className="link-underline">
                     MY ACCOUNT
                   </Link>
                 ) : (
-                  <Link href="/auth/login" onClick={() => setMenuOpen(false)} className="link-underline">
+                  <Link href="/login" onClick={() => setMenuOpen(false)} className="link-underline">
                     SIGN IN
                   </Link>
                 )}
