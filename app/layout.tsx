@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Hair Classic — Quiet Elegance" }],
   },
   manifest: "/manifest.json",
-  icons:    { apple: "/apple-touch-icon.png", icon: "/favicon.ico" },
+  icons:    { apple: "/icon.svg", icon: "/icon.svg" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAF8F5",
+  themeColor: "#ECEAE4",
   width:      "device-width",
   initialScale: 1,
 };
