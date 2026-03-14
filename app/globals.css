@@ -1,26 +1,174 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
 
+/* ── Reset & Box Model ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design Tokens ─────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Aura palette */
+  --bg:           #ECEAE4;   /* warm light grey — Aura base */
+  --bg-alt:       #E5E2DB;   /* slightly darker bg for split sections */
+  --bg-white:     #F5F4F0;   /* near-white panels */
+  --text:         #1A1814;   /* near-black */
+  --text-mid:     #4A4440;   /* body text */
+  --text-muted:   #8A7F78;   /* muted/labels */
+  --gold:         #A08060;   /* accent */
+  --gold-light:   #C4A878;
+  --border:       rgba(26,24,20,0.12);
+  --border-mid:   rgba(26,24,20,0.20);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+
+  /* Spacing */
+  --section-pad:  120px;
+  --container:    1440px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base ──────────────────────────────────────────────── */
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
+
+/* ── Typography helpers ─────────────────────────────────── */
+.font-display { font-family: var(--font-display) !important; }
+
+.label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Aura-style square button ─────────────────────────── */
+.btn-aura {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border-mid);
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-aura:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* Inverted (for dark/hero bg) */
+.btn-aura-inv {
+  color: #fff;
+  border-color: rgba(255,255,255,0.45);
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.10);
+}
+.btn-aura-inv:hover {
+  background: rgba(255,255,255,0.95);
+  color: var(--text);
+  border-color: transparent;
+}
+
+/* Dark fill button */
+.btn-aura-dark {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+.btn-aura-dark:hover {
+  background: #3D2E22;
+  border-color: #3D2E22;
+}
+
+/* ── Underline link (Aura style) ─────────────────────── */
+.link-underline {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-mid);
+  padding-bottom: 2px;
+  transition: border-color 0.3s, color 0.3s;
+}
+.link-underline:hover {
+  border-color: var(--text);
+  color: var(--gold);
+}
+
+/* ── Hairline divider ───────────────────────────────────── */
+.hr-aura {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Marquee ────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 32s linear infinite;
+  width: max-content;
+}
+
+/* ── Scroll fade animation ──────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+.animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.4,0,0.1,1) both; }
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 0; }
+
+/* ── Input ──────────────────────────────────────────────── */
+.input-luxury {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+.input-luxury::placeholder { color: var(--text-muted); }
+.input-luxury:focus { border-color: var(--border-mid); }
+
+/* ── Tailwind bridging utilities ───────────────────────── */
+.bg-parchment         { background-color: var(--bg) !important; }
+.bg-parchment-mid     { background-color: var(--bg-alt) !important; }
+.bg-linen             { background-color: var(--bg-white) !important; }
+.bg-dark              { background-color: var(--text) !important; }
+.text-dark            { color: var(--text) !important; }
+.text-taupe           { color: var(--text-mid) !important; }
+.text-gold            { color: var(--gold) !important; }
+.border-linen-deep    { border-color: var(--border) !important; }
