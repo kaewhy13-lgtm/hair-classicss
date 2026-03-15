@@ -1,25 +1,14 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, Scissors, Calendar, CreditCard } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, ArrowRight, Check, Scissors, Calendar, CreditCard, Loader2 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
+import { createClient } from "@/lib/supabase/client";
+import { useChampagneToast } from "@/components/ui/ChampagneToast";
 import type { Stylist, Service } from "@/lib/supabase/types";
-
-// ─── Mock data (replace with Supabase queries) ────────────
-const mockStylists: Stylist[] = [
-  { id: "1", profile_id: "p1", salon_id: "s1", bio: "Colour specialist with a passion for transformative balayage.", specializations: ["Balayage", "Highlights", "Colour"], certifications: ["L'Oréal Master Colourist"], years_experience: 12, portfolio_images: [], hourly_rate: 120, buffer_minutes: 15, is_active: true, created_at: new Date().toISOString() },
-  { id: "2", profile_id: "p2", salon_id: "s1", bio: "Precision cut artist trained in London and Paris.", specializations: ["Precision Cuts", "Bob", "Layers"], certifications: ["Vidal Sassoon Certified"], years_experience: 9, portfolio_images: [], hourly_rate: 100, buffer_minutes: 15, is_active: true, created_at: new Date().toISOString() },
-  { id: "3", profile_id: "p3", salon_id: "s1", bio: "Texture and smoothing expert. Your frizz-free future starts here.", specializations: ["Keratin", "Brazilian Blowout", "Extensions"], certifications: ["Keratin Research Pro"], years_experience: 15, portfolio_images: [], hourly_rate: 140, buffer_minutes: 20, is_active: true, created_at: new Date().toISOString() },
-];
-
-const mockServices: Service[] = [
-  { id: "s1", salon_id: "sal1", name: "Balayage & Toner", description: "Hand-painted colour technique for natural-looking sun-kissed locks.", duration_minutes: 180, price: 280, category: "Colour", image_url: null, requires_consultation: false, is_active: true },
-  { id: "s2", salon_id: "sal1", name: "Precision Cut",    description: "Architectural cut tailored to your face shape and lifestyle.", duration_minutes: 60,  price: 95,  category: "Cut",    image_url: null, requires_consultation: false, is_active: true },
-  { id: "s3", salon_id: "sal1", name: "Keratin Treatment",description: "Professional smoothing treatment lasting up to 4 months.",    duration_minutes: 120, price: 240, category: "Treatment", image_url: null, requires_consultation: false, is_active: true },
-  { id: "s4", salon_id: "sal1", name: "Bridal Styling",   description: "Bespoke styling for your most important day.",                duration_minutes: 90,  price: 160, category: "Styling", image_url: null, requires_consultation: true, is_active: true },
-];
 
 const timeSlots = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"];
 
@@ -29,8 +18,6 @@ const steps = [
   { label: "Date & Time", icon: Calendar },
   { label: "Payment",   icon: CreditCard },
 ];
-
-const stylistNames: Record<string, string> = { "1": "Isabelle Marchand", "2": "James Thurston", "3": "Anika Sharma" };
 
 const stepTransition = {
   enter: (direction: number) => ({ x: direction > 0 ? 30 : -30, opacity: 0 }),
@@ -45,11 +32,91 @@ export default function BookingPage() {
   } = useAppStore();
 
   const [direction, setDirection] = useState(1);
+  const [stylists, setStylists] = useState<Stylist[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
+  const [salonId, setSalonId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
+  const { show, ToastComponent } = useChampagneToast();
 
-  const goNext = useCallback(() => {
+  useEffect(() => {
+    async function fetchData() {
+      const supabase = createClient();
+      
+      const { data: salons } = await supabase.from("salons").select("id").limit(1);
+      if (salons?.length) setSalonId(salons[0].id);
+
+      const { data: dbStylists } = await supabase
+        .from("stylists")
+        .select("*, profiles!inner(full_name)")
+        .eq("is_active", true);
+      if (dbStylists) setStylists(dbStylists as any[]);
+
+      const { data: dbServices } = await supabase
+        .from("services")
+        .select("*")
+        .eq("is_active", true);
+      if (dbServices) setServices(dbServices);
+
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  const goNext = useCallback(async () => {
+    if (booking.step === steps.length - 1) {
+      // Submit booking
+      setSubmitting(true);
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        show("Please sign in to complete your booking.", "error");
+        setSubmitting(false);
+        router.push("/login");
+        return;
+      }
+
+      if (!salonId) {
+        show("Booking system temporarily unavailable.", "error");
+        setSubmitting(false);
+        return;
+      }
+
+      const startsAt = new Date(booking.selectedDate!);
+      const [hours, minutes] = booking.selectedTimeSlot!.split(":");
+      startsAt.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+
+      const endsAt = new Date(startsAt);
+      endsAt.setMinutes(endsAt.getMinutes() + booking.selectedService!.duration_minutes);
+
+      const { error } = await supabase.from("bookings").insert({
+        client_id: user.id,
+        stylist_id: booking.selectedStylist!.id,
+        service_id: booking.selectedService!.id,
+        salon_id: salonId,
+        starts_at: startsAt.toISOString(),
+        ends_at: endsAt.toISOString(),
+        status: 'pending',
+        total_amount: booking.selectedService!.price,
+        deposit_amount: booking.selectedService!.price / 2,
+      });
+
+      setSubmitting(false);
+
+      if (error) {
+        show(error.message, "error");
+      } else {
+        show("Booking confirmed successfully!", "success");
+        setTimeout(() => router.push("/dashboard"), 2000);
+      }
+      return;
+    }
+
     setDirection(1);
     setBookingStep(Math.min(booking.step + 1, steps.length - 1));
-  }, [booking.step, setBookingStep]);
+  }, [booking, setBookingStep, salonId, router, show]);
 
   const goPrev = useCallback(() => {
     setDirection(-1);
@@ -82,6 +149,7 @@ export default function BookingPage() {
       paddingLeft: "24px",
       paddingRight: "24px",
     }}>
+      {ToastComponent}
       <div style={{ maxWidth: "600px", margin: "0 auto" }}>
 
         {/* ── Header ── */}
@@ -197,7 +265,12 @@ export default function BookingPage() {
               {/* STEP 0 */}
               {booking.step === 0 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                  {mockStylists.map(stylist => {
+                  {loading && (
+                    <div className="flex justify-center items-center py-10">
+                      <Loader2 className="w-6 h-6 animate-spin text-Gold" />
+                    </div>
+                  )}
+                  {stylists.map(stylist => {
                     const selected = booking.selectedStylist?.id === stylist.id;
                     return (
                       <button
@@ -228,11 +301,11 @@ export default function BookingPage() {
                           fontSize: "20px",
                           flexShrink: 0,
                         }}>
-                          {stylistNames[stylist.id]?.charAt(0)}
+                          {((stylist as any).profiles?.full_name || "S").charAt(0)}
                         </div>
                         <div style={{ flex: 1 }}>
                           <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "18px", color: "#1A1814", marginBottom: "4px" }}>
-                            {stylistNames[stylist.id]}
+                            {(stylist as any).profiles?.full_name || "Stylist"}
                           </p>
                           <p style={{ fontFamily: "'Jost', system-ui, sans-serif", fontSize: "12px", color: "#4A4440", lineHeight: 1.5, marginBottom: "12px" }}>
                             {stylist.bio}
@@ -263,7 +336,7 @@ export default function BookingPage() {
               {/* STEP 1 */}
               {booking.step === 1 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                  {mockServices.map(service => {
+                  {services.map(service => {
                     const selected = booking.selectedService?.id === service.id;
                     return (
                       <button
@@ -390,7 +463,7 @@ export default function BookingPage() {
                     {booking.selectedStylist && (
                       <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span style={{ color: "#8A7F78" }}>Stylist</span>
-                        <span style={{ color: "#1A1814", fontWeight: 500 }}>{stylistNames[booking.selectedStylist.id]}</span>
+                        <span style={{ color: "#1A1814", fontWeight: 500 }}>{(booking.selectedStylist as any).profiles?.full_name || "Stylist"}</span>
                       </div>
                     )}
                     {booking.selectedService && (
@@ -485,7 +558,7 @@ export default function BookingPage() {
               transition: "all 0.3s",
             }}
           >
-            {booking.step === steps.length - 1 ? "Confirm Booking" : "Continue"}
+            {booking.step === steps.length - 1 ? (submitting ? "Processing..." : "Confirm Booking") : "Continue"}
             {booking.step < steps.length - 1 && <ArrowRight style={{ width: "14px", height: "14px" }} />}
           </button>
         </div>
