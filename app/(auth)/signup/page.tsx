@@ -64,11 +64,11 @@ export default function SignupPage() {
   ];
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-parchment">
+    <div className="min-h-[calc(100vh-64px)] grid grid-cols-1 md:grid-cols-2 bg-parchment">
       {ToastComponent}
 
       {/* ── Left panel: image ── */}
-      <div className="relative overflow-hidden min-h-[40vh] md:min-h-screen">
+      <div className="relative overflow-hidden min-h-[40vh] md:min-h-[calc(100vh-64px)]">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1000&auto=format&fit=crop&q=85')" }}
@@ -91,13 +91,6 @@ export default function SignupPage() {
           animate="visible"
           className="w-full max-w-[380px]"
         >
-          {/* Brand */}
-          <motion.div variants={fadeUp} custom={0} className="mb-12">
-            <Link href="/" className="font-display text-base font-normal tracking-[0.22em] uppercase text-dark no-underline">
-              Hair Classic
-            </Link>
-          </motion.div>
-
           {!sent ? (
             <>
               {/* Header */}

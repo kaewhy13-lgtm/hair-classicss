@@ -8,8 +8,6 @@ import { createClient } from "@/lib/supabase/client";
 const navLinks = [
   { href: "/booking",      label: "Book" },
   { href: "/stylists",     label: "Stylists" },
-  { href: "/consultation", label: "AI Consult" },
-  { href: "/membership",   label: "Membership" },
 ];
 
 export function Navbar() {
@@ -209,9 +207,11 @@ export function Navbar() {
                 {navLinks.map(({ href, label }, i) => (
                   <Link key={href} href={href} onClick={() => setMenuOpen(false)} style={{
                     display: "block",
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: "clamp(24px, 6vw, 32px)",
-                    fontWeight: 300,
+                    fontFamily: "'Jost', system-ui, sans-serif",
+                    fontSize: "clamp(18px, 5vw, 24px)",
+                    fontWeight: 400,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
                     color: "#1A1814",
                     textDecoration: "none",
                     paddingBottom: "16px",

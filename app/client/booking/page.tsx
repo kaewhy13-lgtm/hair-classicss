@@ -77,7 +77,7 @@ export default function BookingPage() {
     <div style={{
       minHeight: "100vh",
       backgroundColor: "#ECEAE4",
-      paddingTop: "140px",
+      paddingTop: "80px",
       paddingBottom: "100px",
       paddingLeft: "24px",
       paddingRight: "24px",
