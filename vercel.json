@@ -10,7 +10,7 @@
         { "key": "X-XSS-Protection",          "value": "1; mode=block"    },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.supabase.co https://res.cloudinary.com https://images.unsplash.com; font-src 'self' https://fonts.gstatic.com; frame-src https://js.stripe.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.supabase.co https://res.cloudinary.com https://images.unsplash.com https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.dodopay.com https://live.dodopay.com https://test.dodopay.com;"
         }
       ]
     }
@@ -21,8 +21,5 @@
       "destination": "/api/sitemap"
     }
   ],
-  "regions": ["lhr1"],
-  "github": {
-    "silent": true
-  }
+  "regions": ["lhr1"]
 }
