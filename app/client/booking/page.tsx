@@ -43,7 +43,7 @@ export default function BookingStepOne() {
 <div className="group relative cursor-pointer border border-outline-variant p-8 bg-surface-container-lowest transition-all hover:border-secondary">
 {/*  Selection Indicator (Gold corner checkmark placeholder)  */}
 <div className="absolute top-0 right-0 p-4 opacity-0 group-[.selected]:opacity-100">
-<span className="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
 </div>
 <div className="flex flex-col items-start gap-6">
 <div className="w-16 h-16 bg-primary text-on-primary flex items-center justify-center text-2xl font-headline font-light">I</div>
@@ -62,7 +62,7 @@ export default function BookingStepOne() {
 <div className="group relative cursor-pointer border border-primary p-8 bg-surface-container-lowest ring-1 ring-primary">
 {/*  Active State Mockup  */}
 <div className="absolute top-0 right-0 p-4">
-<span className="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
 </div>
 <div className="flex flex-col items-start gap-6">
 <div className="w-16 h-16 bg-primary text-on-primary flex items-center justify-center text-2xl font-headline font-light">M</div>
