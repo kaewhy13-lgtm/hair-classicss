@@ -290,7 +290,7 @@ export default function MembershipPage() {
           color: "#8A7F78",
           letterSpacing: "0.05em",
         }}>
-          Cancel anytime · No contracts · VAT included · Secure via Stripe
+          Cancel anytime · No contracts · VAT included · Secure via DodoPay
         </p>
 
       </div>

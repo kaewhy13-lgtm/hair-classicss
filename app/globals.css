@@ -7,19 +7,21 @@
 /* ── Reset & Box Model ─────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Design Tokens ─────────────────────────────────────── */
+/* ── Design Tokens — The Digital Atelier ───────────────── */
 :root {
-  /* Aura palette */
-  --bg:           #ECEAE4;   /* warm light grey — Aura base */
-  --bg-alt:       #E5E2DB;   /* slightly darker bg for split sections */
-  --bg-white:     #F5F4F0;   /* near-white panels */
+  /* Surface hierarchy — tonal layering, no hard borders */
+  --bg:           #ECEAE4;   /* warm cream — base canvas */
+  --bg-alt:       #E5E2DB;   /* subtle inset — secondary sections */
+  --bg-white:     #F5F4F0;   /* elevated panels — near-white */
+  --bg-deep:      #DCDAD4;   /* deepest surface tone */
   --text:         #1A1814;   /* near-black */
   --text-mid:     #4A4440;   /* body text */
   --text-muted:   #8A7F78;   /* muted/labels */
-  --gold:         #A08060;   /* accent */
+  --gold:         #A08060;   /* gold accent */
   --gold-light:   #C4A878;
-  --border:       rgba(26,24,20,0.12);
-  --border-mid:   rgba(26,24,20,0.20);
+  --border:       rgba(26,24,20,0.08);
+  --border-mid:   rgba(26,24,20,0.18);
+  --border-strong: rgba(26,24,20,0.30);
 
   /* Typography */
   --font-display: 'Playfair Display', Georgia, serif;
@@ -49,21 +51,46 @@ body {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.30em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-/* ── Aura-style square button ─────────────────────────── */
-.btn-aura {
+/* ── Primary Dark Button ───────────────────────────────── */
+.btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
+  gap: 10px;
+  padding: 16px 36px;
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 0;
+}
+.btn-primary:hover {
+  background: #3D2E22;
+  border-color: #3D2E22;
+}
+
+/* ── Aura-style square button (ghost/outline) ─────────── */
+.btn-aura {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--text);
   background: transparent;
@@ -72,6 +99,7 @@ body {
   transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   text-decoration: none;
   white-space: nowrap;
+  border-radius: 0;
 }
 .btn-aura:hover {
   background: var(--text);
@@ -79,20 +107,21 @@ body {
   border-color: var(--text);
 }
 
-/* Inverted (for dark/hero bg) */
+/* Hero CTA — glass-morphism (for dark/image backgrounds) */
 .btn-aura-inv {
-  color: #fff;
-  border-color: rgba(255,255,255,0.45);
-  backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.92);
+  border-color: rgba(255,255,255,0.40);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .btn-aura-inv:hover {
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.92);
   color: var(--text);
   border-color: transparent;
 }
 
-/* Dark fill button */
+/* Dark fill variant */
 .btn-aura-dark {
   background: var(--text);
   color: var(--bg);
@@ -103,12 +132,12 @@ body {
   border-color: #3D2E22;
 }
 
-/* ── Underline link (Aura style) ─────────────────────── */
+/* ── Gold underline link (Aura style) ─────────────────── */
 .link-underline {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--text);
   text-decoration: none;
@@ -117,7 +146,7 @@ body {
   transition: border-color 0.3s, color 0.3s;
 }
 .link-underline:hover {
-  border-color: var(--text);
+  border-color: var(--gold);
   color: var(--gold);
 }
 
@@ -135,7 +164,7 @@ body {
 }
 .marquee-track {
   display: flex;
-  animation: marquee 32s linear infinite;
+  animation: marquee 36s linear infinite;
   width: max-content;
 }
 
@@ -144,15 +173,32 @@ body {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0);     }
 }
-.animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.4,0,0.1,1) both; }
+.animate-fade-up { animation: fadeUp 0.9s cubic-bezier(0.4,0,0.1,1) both; }
 
 /* ── Scrollbar ──────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar       { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 0; }
 
-/* ── Input ──────────────────────────────────────────────── */
+/* ── Input — bottom-border only (The Digital Atelier) ─── */
 .input-luxury {
+  width: 100%;
+  padding: 14px 0 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-mid);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+.input-luxury::placeholder { color: var(--text-muted); }
+.input-luxury:focus { border-color: var(--gold); }
+
+/* Legacy boxed input (keep for compatibility) */
+.input-luxury-box {
   width: 100%;
   padding: 12px 16px;
   background: var(--bg-white);
@@ -164,8 +210,8 @@ body {
   outline: none;
   transition: border-color 0.3s;
 }
-.input-luxury::placeholder { color: var(--text-muted); }
-.input-luxury:focus { border-color: var(--border-mid); }
+.input-luxury-box::placeholder { color: var(--text-muted); }
+.input-luxury-box:focus { border-color: var(--border-mid); }
 
 /* ── Tailwind bridging utilities ───────────────────────── */
 .bg-parchment         { background-color: var(--bg) !important; }
@@ -192,7 +238,7 @@ body {
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 0;
 }
 
 .grid-stats {
@@ -204,25 +250,61 @@ body {
 
 /* Section padding helpers */
 .section-pad {
-  padding: 120px 40px;
+  padding: 130px 48px;
 }
 
 .section-pad-sm {
-  padding: 80px 40px;
+  padding: 90px 48px;
 }
 
 .split-text-pad {
-  padding: 100px 80px;
+  padding: 110px 88px;
 }
 
 .faq-pad {
-  padding: 100px 80px;
+  padding: 110px 88px;
 }
 
 /* Nav desktop/mobile */
 .nav-desktop { display: flex; }
 .nav-mobile-only { display: none; }
-.nav-header-pad { padding: 0 40px; }
+.nav-header-pad { padding: 0 48px; }
+
+/* ── Service card hover ─────────────────────────────────── */
+.service-card-img {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+.service-card-wrap:hover .service-card-img {
+  transform: scale(1.04);
+}
+
+/* ── Selection card (booking) ─────────────────────────── */
+.selection-card {
+  width: 100%;
+  text-align: left;
+  padding: 24px 24px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  font-family: var(--font-body);
+}
+.selection-card:hover {
+  border-color: var(--border-mid);
+  background: rgba(26,24,20,0.02);
+}
+.selection-card.selected {
+  background: var(--bg-alt);
+  border-color: var(--border-strong);
+}
 
 /* ── Phone / tablet overrides ──────────────────────────── */
 @media (max-width: 768px) {
@@ -254,24 +336,19 @@ body {
 
   /* Padding */
   .section-pad {
-    padding: 60px 20px !important;
+    padding: 64px 20px !important;
   }
 
   .section-pad-sm {
-    padding: 48px 20px !important;
+    padding: 52px 20px !important;
   }
 
   .split-text-pad {
-    padding: 60px 24px !important;
+    padding: 64px 24px !important;
   }
 
   .faq-pad {
-    padding: 60px 24px !important;
-  }
-
-  /* Testimonials 3-col -> 1-col */
-  .grid-3 > * {
-    width: 100% !important;
+    padding: 64px 24px !important;
   }
 
   /* Section header row — allow wrapping on small screens */
@@ -286,4 +363,3 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
-

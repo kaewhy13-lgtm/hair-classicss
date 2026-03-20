@@ -1,57 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Droplets, Scissors, Clock, ChevronDown, ChevronRight,
-  Camera, BookOpen, AlertCircle, Sparkles, Star, Edit2
+  Camera, BookOpen, AlertCircle, Sparkles, Star, Edit2, Loader2
 } from "lucide-react";
 import { staggerContainer, slideUp, fadeIn } from "@/styles/animations";
-
-// ─── Mock data ────────────────────────────────────────────────
-const hairProfile = {
-  hair_type:       "Fine, Straight",
-  hair_texture:    "Silky",
-  current_color:   "Warm Ash Blonde",
-  last_formula:    "Wella 9/1 + 9/16 — 1:2 with 20vol, toned Olaplex 4-P",
-  allergies:       ["PPD (p-Phenylenediamine)", "Resorcinol"],
-  sensitivities:   ["Sulphates", "Strong fragrances"],
-  style_preferences: ["Natural", "Low-maintenance", "Editorial for events"],
-  lifestyle_notes: "Works in finance. Prefers wash-and-go styles. Travels frequently — likes products that are easy to take on flights.",
-};
-
-const treatmentHistory = [
-  {
-    date: "12 Mar 2026",
-    service: "Balayage & Toner",
-    stylist: "Isabelle M.",
-    notes: "Hand-painted balayage, mid-lengths to ends. Toned with Olaplex 4-P shampoo 15 min. Client loved the warmth.",
-    before: "#7B6245",
-    after: "#D4B87A",
-    formula: "Wella BlondorPlex + Toner 10/81 10vol",
-    rating: 5,
-  },
-  {
-    date: "15 Jan 2026",
-    service: "Precision Cut",
-    stylist: "James T.",
-    notes: "Removed 2.5cm. Kept length below shoulder. Subtle face-framing layers added.",
-    before: null,
-    after: null,
-    formula: null,
-    rating: 5,
-  },
-  {
-    date: "4 Nov 2025",
-    service: "Keratin Treatment",
-    stylist: "Isabelle M.",
-    notes: "Cezanne full keratin treatment. Blow-dry and flat iron at 230°C. Advised to wait 72h before washing.",
-    before: null,
-    after: null,
-    formula: null,
-    rating: 4,
-  },
-];
+import { createClient } from "@/lib/supabase/client";
+import { format } from "date-fns";
 
 function ColorSwatch({ hex, label }: { hex: string; label: string }) {
   return (
@@ -65,7 +22,7 @@ function ColorSwatch({ hex, label }: { hex: string; label: string }) {
   );
 }
 
-function TreatmentCard({ treatment }: { treatment: typeof treatmentHistory[0] }) {
+function TreatmentCard({ treatment }: { treatment: any }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -79,9 +36,9 @@ function TreatmentCard({ treatment }: { treatment: typeof treatmentHistory[0] })
             <Scissors className="h-3.5 w-3.5 text-gold/60" />
           </div>
           <div>
-            <p className="text-cream font-medium text-sm">{treatment.service}</p>
+            <p className="text-cream font-medium text-sm">{treatment.services?.name || "Service"}</p>
             <p className="text-muted/60 text-[11px] mt-0.5">
-              {treatment.date} · {treatment.stylist}
+              {format(new Date(treatment.starts_at), "dd MMM yyyy")} · {(treatment.stylists as any)?.profiles?.full_name || "Stylist"}
             </p>
           </div>
         </div>
@@ -136,6 +93,39 @@ function TreatmentCard({ treatment }: { treatment: typeof treatmentHistory[0] })
 }
 
 export default function HairPassportPage() {
+  const [hairProfile, setHairProfile] = useState<any>(null);
+  const [treatmentHistory, setTreatmentHistory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return setLoading(false);
+      
+      const { data: passport } = await supabase.from('hair_passports').select('*').eq('client_id', user.id).single();
+      if (passport) setHairProfile(passport);
+
+      const { data: treatments } = await supabase.from('bookings')
+        .select('*, services(name), stylists(profiles(full_name))')
+        .eq('client_id', user.id)
+        .eq('status', 'completed')
+        .order('starts_at', { ascending: false });
+      if (treatments) setTreatmentHistory(treatments);
+      
+      setLoading(false);
+    }
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-espresso-dark pt-24 pb-16 px-4 sm:px-6 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gold/50" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-espresso-dark pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
@@ -160,12 +150,25 @@ export default function HairPassportPage() {
                 A living record of every formula, treatment, and preference — yours to keep, ours to honour.
               </motion.p>
             </div>
-            <button className="shrink-0 flex items-center gap-2 border border-gold/20 hover:border-gold/40 px-4 py-2 rounded-sm text-[12px] tracking-wide uppercase text-cream/60 hover:text-cream transition-all duration-300">
-              <Edit2 className="h-3.5 w-3.5" />
-              Edit
-            </button>
+            {hairProfile && (
+              <button className="shrink-0 flex items-center gap-2 border border-gold/20 hover:border-gold/40 px-4 py-2 rounded-sm text-[12px] tracking-wide uppercase text-cream/60 hover:text-cream transition-all duration-300">
+                <Edit2 className="h-3.5 w-3.5" />
+                Edit
+              </button>
+            )}
           </div>
         </motion.div>
+
+        {!hairProfile && treatmentHistory.length === 0 ? (
+          <motion.div variants={fadeIn} className="border border-gold/10 rounded-sm bg-espresso-light/10 p-12 text-center">
+            <BookOpen className="w-8 h-8 text-gold/40 mx-auto mb-4" />
+            <h3 className="text-cream text-lg font-display mb-2">No Passport Data Yet</h3>
+            <p className="text-muted/60 text-sm max-w-md mx-auto">
+              Your Hair Passport will be created automatically after your first completed appointment and updated by your stylist after every visit.
+            </p>
+          </motion.div>
+        ) : (
+          <>
 
         {/* ── Profile Grid ─────────────────────────────────────── */}
         <motion.div
@@ -235,7 +238,7 @@ export default function HairPassportPage() {
               <p className="text-[10px] tracking-[0.15em] text-red-400/50 uppercase">Allergies</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {hairProfile.allergies.map((a) => (
+              {hairProfile?.allergies?.map((a: string) => (
                 <span key={a} className="text-[12px] px-2.5 py-1 rounded-sm border border-red-400/15 text-red-300/80 bg-red-400/5">
                   {a}
                 </span>
@@ -249,7 +252,7 @@ export default function HairPassportPage() {
               <p className="text-[10px] tracking-[0.15em] text-amber-400/50 uppercase">Sensitivities</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {hairProfile.sensitivities.map((s) => (
+              {hairProfile?.sensitivities?.map((s: string) => (
                 <span key={s} className="text-[12px] px-2.5 py-1 rounded-sm border border-amber-400/15 text-amber-300/70 bg-amber-400/5">
                   {s}
                 </span>
@@ -265,7 +268,7 @@ export default function HairPassportPage() {
             <p className="text-[11px] tracking-[0.15em] text-cream/50 uppercase">Style Preferences</p>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
-            {hairProfile.style_preferences.map((p) => (
+            {hairProfile?.style_preferences?.map((p: string) => (
               <span key={p} className="text-[12px] px-3 py-1.5 rounded-sm border border-gold/15 text-cream/70 bg-espresso-light/20 hover:border-gold/30 transition-colors">
                 {p}
               </span>
@@ -303,6 +306,9 @@ export default function HairPassportPage() {
             ))}
           </motion.div>
         </motion.div>
+
+        </>
+        )}
 
       </div>
     </div>

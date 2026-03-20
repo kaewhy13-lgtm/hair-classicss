@@ -4,15 +4,21 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "/booking",      label: "Book" },
-  { href: "/stylists",     label: "Stylists" },
+  { href: "/booking",   label: "Book" },
+  { href: "/stylists",  label: "Stylists" },
 ];
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user,     setUser]     = useState<unknown>(null);
+  const [user, setUser]         = useState<unknown>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Detect if we're on the home page (transparent hero nav)
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const supabase = createClient();
@@ -22,6 +28,24 @@ export function Navbar() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  // Scroll-aware background
+  useEffect(() => {
+    if (!isHome) return;
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+
+  // Nav is transparent on home hero, solid+blurred after scroll or on other pages
+  const navBg = isHome && !scrolled
+    ? "rgba(26,24,20,0.0)"
+    : "rgba(236,234,228,0.94)";
+  const navBorder = isHome && !scrolled
+    ? "1px solid rgba(255,255,255,0.0)"
+    : "1px solid rgba(26,24,20,0.07)";
+  const textColor = isHome && !scrolled ? "rgba(255,255,255,0.88)" : "#1A1814";
+  const textColorMuted = isHome && !scrolled ? "rgba(255,255,255,0.58)" : "#4A4440";
 
   return (
     <>
@@ -35,24 +59,26 @@ export function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: "64px",
-          backgroundColor: "rgba(236,234,228,0.92)",
-          backdropFilter: "blur(16px)",
-          borderBottom: "1px solid rgba(26,24,20,0.08)",
+          height: "68px",
+          backgroundColor: navBg,
+          backdropFilter: scrolled || !isHome ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled || !isHome ? "blur(20px)" : "none",
+          borderBottom: navBorder,
           fontFamily: "'Jost', system-ui, sans-serif",
+          transition: "background-color 0.5s ease, border-color 0.5s ease",
         }}
       >
-        {/* LEFT — MENU button (always visible, toggles side panel) */}
-        <div style={{ display: "flex", alignItems: "center", gap: "32px", flex: 1 }}>
+        {/* LEFT — MENU + desktop nav */}
+        <div style={{ display: "flex", alignItems: "center", gap: "36px", flex: 1 }}>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open menu"
             style={{
               fontSize: "10px",
               fontWeight: 500,
-              letterSpacing: "0.22em",
+              letterSpacing: "0.26em",
               textTransform: "uppercase",
-              color: "#1A1814",
+              color: textColor,
               background: "none",
               border: "none",
               cursor: "pointer",
@@ -61,33 +87,35 @@ export function Navbar() {
               flexDirection: "column",
               gap: "5px",
               padding: "4px",
+              transition: "color 0.4s ease",
             }}
           >
-            {/* Hamburger icon on mobile, text on desktop */}
-            <span className="nav-desktop" style={{ fontSize: "10px", letterSpacing: "0.22em", textTransform: "uppercase" }}>
+            {/* Text on desktop */}
+            <span className="nav-desktop" style={{ fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase" }}>
               MENU
             </span>
+            {/* Hamburger on mobile */}
             <span className="nav-mobile-only" style={{ flexDirection: "column", gap: "5px" }}>
-              <span style={{ display: "block", width: "22px", height: "1.5px", background: "#1A1814" }} />
-              <span style={{ display: "block", width: "16px", height: "1.5px", background: "#1A1814" }} />
-              <span style={{ display: "block", width: "22px", height: "1.5px", background: "#1A1814" }} />
+              <span style={{ display: "block", width: "22px", height: "1px", background: textColor, transition: "background 0.4s" }} />
+              <span style={{ display: "block", width: "15px", height: "1px", background: textColor, transition: "background 0.4s" }} />
+              <span style={{ display: "block", width: "22px", height: "1px", background: textColor, transition: "background 0.4s" }} />
             </span>
           </button>
 
-          {/* Desktop nav links — hidden on mobile */}
+          {/* Desktop nav links */}
           <nav className="nav-desktop" style={{ gap: "28px" }}>
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href} style={{
                 fontSize: "10px",
                 fontWeight: 400,
-                letterSpacing: "0.18em",
+                letterSpacing: "0.20em",
                 textTransform: "uppercase",
-                color: "#4A4440",
+                color: textColorMuted,
                 textDecoration: "none",
                 transition: "color 0.3s",
               }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#1A1814")}
-              onMouseLeave={e => (e.currentTarget.style.color = "#4A4440")}
+              onMouseEnter={e => (e.currentTarget.style.color = textColor)}
+              onMouseLeave={e => (e.currentTarget.style.color = textColorMuted)}
               >
                 {label}
               </Link>
@@ -98,53 +126,69 @@ export function Navbar() {
         {/* CENTER — Wordmark */}
         <Link href="/" style={{
           fontFamily: "'Playfair Display', Georgia, serif",
-          fontSize: "18px",
+          fontSize: "17px",
           fontWeight: 400,
-          letterSpacing: "0.22em",
+          letterSpacing: "0.26em",
           textTransform: "uppercase",
-          color: "#1A1814",
+          color: textColor,
           textDecoration: "none",
           position: "absolute",
           left: "50%",
           transform: "translateX(-50%)",
           whiteSpace: "nowrap",
+          transition: "color 0.4s ease",
         }}>
           Hair Classic
         </Link>
 
-        {/* RIGHT — Sign In / Book (desktop only shows BOOK) */}
+        {/* RIGHT — Sign In / Account / Book */}
         <div style={{ display: "flex", alignItems: "center", gap: "20px", flex: 1, justifyContent: "flex-end" }}>
           {user ? (
             <Link href="/dashboard" style={{
-              fontSize: "10px", fontWeight: 500, letterSpacing: "0.18em",
-              textTransform: "uppercase", color: "#4A4440", textDecoration: "none",
+              fontSize: "10px", fontWeight: 500, letterSpacing: "0.20em",
+              textTransform: "uppercase", color: textColorMuted, textDecoration: "none",
+              transition: "color 0.3s",
             }}>
               ACCOUNT
             </Link>
           ) : (
             <>
-              {/* Sign In — hidden on small mobile to save space */}
               <Link href="/login" className="nav-desktop" style={{
-                fontSize: "10px", fontWeight: 400, letterSpacing: "0.18em",
-                textTransform: "uppercase", color: "#4A4440", textDecoration: "none",
+                fontSize: "10px", fontWeight: 400, letterSpacing: "0.20em",
+                textTransform: "uppercase", color: textColorMuted, textDecoration: "none",
+                transition: "color 0.3s",
               }}>
                 SIGN IN
               </Link>
               <Link href="/booking" style={{
-                fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em",
-                textTransform: "uppercase", color: "#1A1814", textDecoration: "none",
-                padding: "8px 16px",
-                border: "1px solid rgba(26,24,20,0.25)",
-                transition: "all 0.3s",
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                color: isHome && !scrolled ? "rgba(255,255,255,0.90)" : "#1A1814",
+                textDecoration: "none",
+                padding: "9px 20px",
+                border: isHome && !scrolled ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(26,24,20,0.22)",
+                background: isHome && !scrolled ? "rgba(255,255,255,0.08)" : "transparent",
+                backdropFilter: isHome && !scrolled ? "blur(12px)" : "none",
+                transition: "all 0.4s ease",
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.background = "#1A1814";
                 (e.currentTarget as HTMLElement).style.color = "#ECEAE4";
+                (e.currentTarget as HTMLElement).style.borderColor = "#1A1814";
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "#1A1814";
+                if (isHome && !scrolled) {
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
+                  (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.90)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.35)";
+                } else {
+                  (e.currentTarget as HTMLElement).style.background = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = "#1A1814";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(26,24,20,0.22)";
+                }
               }}
               >
                 BOOK
@@ -154,40 +198,58 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ── Slide-over menu (works on all screen sizes) ── */}
+      {/* ── Slide-over menu ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
               onClick={() => setMenuOpen(false)}
               style={{
                 position: "fixed", inset: 0, zIndex: 200,
-                background: "rgba(26,24,20,0.3)", backdropFilter: "blur(4px)",
+                background: "rgba(26,24,20,0.35)",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
               }}
             />
+            {/* Drawer */}
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ type: "tween", duration: 0.4, ease: [0.4, 0, 0.1, 1] }}
+              transition={{ type: "tween", duration: 0.45, ease: [0.4, 0, 0.1, 1] }}
               style={{
                 position: "fixed", top: 0, left: 0, bottom: 0,
-                width: "min(360px, 85vw)", zIndex: 300,
+                width: "min(380px, 88vw)", zIndex: 300,
                 background: "#ECEAE4",
-                padding: "64px 40px",
+                padding: "72px 48px",
                 display: "flex", flexDirection: "column", gap: "0",
                 overflowY: "auto",
               }}
             >
+              {/* HC monogram at top */}
+              <p style={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: "22px",
+                fontWeight: 300,
+                letterSpacing: "0.20em",
+                textTransform: "uppercase",
+                color: "#1A1814",
+                marginBottom: "52px",
+              }}>
+                HC
+              </p>
+
               <button
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  position: "absolute", top: "24px", right: "24px",
+                  position: "absolute", top: "28px", right: "28px",
                   background: "none", border: "none", cursor: "pointer",
-                  fontSize: "10px", letterSpacing: "0.22em",
+                  fontSize: "10px", letterSpacing: "0.26em",
                   textTransform: "uppercase", color: "#8A7F78",
                   fontFamily: "'Jost', system-ui, sans-serif",
                 }}
@@ -195,31 +257,38 @@ export function Navbar() {
                 CLOSE
               </button>
 
-              <div style={{ marginBottom: "48px" }}>
+              <div style={{ marginBottom: "52px" }}>
                 <p style={{
-                  fontSize: "10px", letterSpacing: "0.28em",
-                  textTransform: "uppercase", color: "#8A7F78",
+                  fontSize: "10px", letterSpacing: "0.30em",
+                  textTransform: "uppercase", color: "#A08060",
                   fontFamily: "'Jost', system-ui, sans-serif",
-                  marginBottom: "28px",
+                  marginBottom: "32px",
                 }}>
                   Navigation
                 </p>
-                {navLinks.map(({ href, label }, i) => (
+                {[
+                  { href: "/", label: "Home" },
+                  { href: "/booking", label: "Book" },
+                  { href: "/stylists", label: "Stylists" },
+                  { href: "/client/hair-passport", label: "Hair Passport" },
+                ].map(({ href, label }, i) => (
                   <Link key={href} href={href} onClick={() => setMenuOpen(false)} style={{
                     display: "block",
-                    fontFamily: "'Jost', system-ui, sans-serif",
-                    fontSize: "clamp(18px, 5vw, 24px)",
-                    fontWeight: 400,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: "clamp(20px, 5vw, 28px)",
+                    fontWeight: 300,
+                    letterSpacing: "-0.01em",
                     color: "#1A1814",
                     textDecoration: "none",
-                    paddingBottom: "16px",
-                    marginBottom: i < navLinks.length - 1 ? "0" : "0",
-                    borderBottom: "1px solid rgba(26,24,20,0.08)",
-                    paddingTop: "16px",
+                    paddingBottom: "18px",
+                    marginBottom: "0",
+                    borderBottom: "1px solid rgba(26,24,20,0.07)",
+                    paddingTop: i === 0 ? "0" : "18px",
                     transition: "color 0.3s",
-                  }}>
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#A08060")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#1A1814")}
+                  >
                     {label}
                   </Link>
                 ))}
@@ -241,8 +310,8 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Spacer for fixed nav */}
-      <div style={{ height: "64px" }} />
+      {/* Spacer — only on non-home pages since home has hero that fills viewport */}
+      {!isHome && <div style={{ height: "68px" }} />}
     </>
   );
 }

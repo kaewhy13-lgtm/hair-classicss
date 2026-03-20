@@ -1,48 +1,13 @@
 "use client";
+import * as React from "react";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Star, Award, ArrowRight, Instagram, MapPin } from "lucide-react";
 
-// ─── Mock data ────────────────────────────────────────────────
-const stylists = [
-  {
-    id: "isabelle-m",
-    name: "Isabelle Marchand",
-    role: "Creative Director",
-    experience: 14,
-    specializations: ["Balayage", "Creative Colour", "Bridal"],
-    bio: "Trained at Toni & Guy London and l'École de Coiffure Paris. Isabelle's hand-painted colour work has been featured in Vogue UK and Harper's Bazaar. Her philosophy: hair should move like fabric — effortless and exquisite.",
-    rating: 5.0,
-    reviews: 312,
-    accent: "#1A1814",
-    awards: ["UK Colourist of the Year 2023"],
-  },
-  {
-    id: "james-t",
-    name: "James Thurston",
-    role: "Senior Stylist",
-    experience: 9,
-    specializations: ["Precision Cuts", "Scalp Treatments", "Men's Grooming"],
-    bio: "James approaches every cut as an architectural exercise — structure, balance, and silhouette above all. His precision cuts are so clean they last twice as long. Clients return for him as much as for the result.",
-    rating: 4.9,
-    reviews: 198,
-    accent: "#4A4440",
-    awards: ["L'Oréal Colour Trophy — Finalist"],
-  },
-  {
-    id: "anika-s",
-    name: "Anika Sharma",
-    role: "Colour Specialist",
-    experience: 7,
-    specializations: ["Highlights", "Keratin", "Olaplex Treatments"],
-    bio: "Anika's colour work is deeply rooted in hair science — she never applies a formula without fully understanding the hair's history. Her Olaplex treatments have reversed damage clients thought was permanent.",
-    rating: 4.9,
-    reviews: 156,
-    accent: "#8A7F78",
-    awards: ["Schwarzkopf Licensed Champion"],
-  },
-];
+import { createClient } from "@/lib/supabase/client";
+
+const defaultAccents = ["#1A1814", "#4A4440", "#8A7F78"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -53,6 +18,38 @@ const fadeUp = {
 };
 
 export default function StylistsPage() {
+  const [stylists, setStylists] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function fetchStylists() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("stylists")
+        .select("*, profiles!inner(full_name)")
+        .eq("is_active", true);
+
+      if (data) {
+        setStylists(
+          data.map((s, i) => ({
+            id: s.id,
+            name: (s as any).profiles?.full_name || "Stylist",
+            role: "Stylist", // Fallback role
+            experience: s.years_experience || 0,
+            specializations: s.specializations || [],
+            bio: s.bio || "A talented artist dedicated to bringing your vision to life.",
+            rating: 5.0, // Mock rating for UI polish
+            reviews: 0,
+            accent: defaultAccents[i % defaultAccents.length],
+            awards: s.certifications || [],
+          }))
+        );
+      }
+      setLoading(false);
+    }
+    fetchStylists();
+  }, []);
+
   return (
     <div style={{
       minHeight: "100vh",
@@ -147,13 +144,22 @@ export default function StylistsPage() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           style={{
-            display: "grid",
+            display: loading || stylists.length === 0 ? "block" : "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
             gap: "24px",
             marginBottom: "100px",
           }}
         >
-          {stylists.map((stylist, idx) => (
+          {loading ? (
+            <p style={{ fontFamily: "'Jost', system-ui, sans-serif", fontSize: "15px", color: "#8A7F78" }}>
+              Loading artists...
+            </p>
+          ) : stylists.length === 0 ? (
+            <p style={{ fontFamily: "'Jost', system-ui, sans-serif", fontSize: "15px", color: "#8A7F78" }}>
+              No artists available at the moment.
+            </p>
+          ) : (
+            stylists.map((stylist, idx) => (
             <motion.div key={stylist.id} variants={fadeUp} custom={idx + 4} style={{
               backgroundColor: "#F5F4F0",
               border: "1px solid rgba(26,24,20,0.12)",
@@ -225,7 +231,7 @@ export default function StylistsPage() {
 
               {/* Specializations Tags */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
-                {stylist.specializations.map((s) => (
+                {stylist.specializations.map((s: string) => (
                   <span key={s} style={{
                     fontFamily: "'Jost', system-ui, sans-serif",
                     fontSize: "10px",
@@ -305,7 +311,7 @@ export default function StylistsPage() {
               </div>
 
             </motion.div>
-          ))}
+          )))}
         </motion.div>
 
         {/* ── Awards Banner ── */}
