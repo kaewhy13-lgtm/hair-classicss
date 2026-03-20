@@ -17,6 +17,7 @@ const config: Config = {
         blush:      { DEFAULT: "#C8ADA6", light: "#E2D0CC", dark: "#A88880" },
         sage:       { DEFAULT: "#9AAF9A", light: "#BDD0BD"                  },
         // compat aliases
+        "accent-gold": "var(--gold)",
         cream:      { DEFAULT: "#FAF8F5", light: "#FFFFFF", dark: "#EAE3D9" },
         sand:       { DEFAULT: "#EAE3D9", mid: "#DED4C6", deep: "#CEC0AE"   },
         espresso:   { DEFAULT: "#2E2018", light: "#3D2E27", dark: "#1C1410" },
@@ -28,14 +29,20 @@ const config: Config = {
         copper:     { DEFAULT: "#A0845A", light: "#C4A878" },
         border:     { DEFAULT: "rgba(139,123,114,0.18)", warm: "rgba(160,132,90,0.22)" },
         surface:    { DEFAULT: "rgba(243,237,230,0.85)", warm: "#FFFFFF" },
+        // Stitch Design System Colors
+        "surface-container-low": "var(--bg-alt)",
+        "surface-container-highest": "var(--bg-heavy)",
+        "outline-variant": "var(--outline-variant)",
+        secondary: "var(--gold)",
+        "secondary-container": "var(--gold-light)",
       },
 
       // ─── Typography ──────────────────────────────────────
       fontFamily: {
-        display: ["'Playfair Display'", "Georgia", "serif"],
-        serif:   ["'Playfair Display'", "Georgia", "serif"],
-        body:    ["'Jost'", "system-ui", "sans-serif"],
-        sans:    ["'Jost'", "system-ui", "sans-serif"],
+        display: ["'Newsreader'", "Georgia", "serif"],
+        serif:   ["'Newsreader'", "Georgia", "serif"],
+        body:    ["'Manrope'", "system-ui", "sans-serif"],
+        sans:    ["'Manrope'", "system-ui", "sans-serif"],
       },
 
       // ─── Spacing ─────────────────────────────────────────

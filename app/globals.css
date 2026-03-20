@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+/* @import removed - loaded in layout.tsx for performance */
 
 @tailwind base;
 @tailwind components;
@@ -9,23 +9,21 @@
 
 /* ── Design Tokens — The Digital Atelier ───────────────── */
 :root {
-  /* Surface hierarchy — tonal layering, no hard borders */
-  --bg:           #ECEAE4;   /* warm cream — base canvas */
-  --bg-alt:       #E5E2DB;   /* subtle inset — secondary sections */
-  --bg-white:     #F5F4F0;   /* elevated panels — near-white */
-  --bg-deep:      #DCDAD4;   /* deepest surface tone */
-  --text:         #1A1814;   /* near-black */
-  --text-mid:     #4A4440;   /* body text */
-  --text-muted:   #8A7F78;   /* muted/labels */
-  --gold:         #A08060;   /* gold accent */
-  --gold-light:   #C4A878;
-  --border:       rgba(26,24,20,0.08);
-  --border-mid:   rgba(26,24,20,0.18);
-  --border-strong: rgba(26,24,20,0.30);
+  /* Stitch Design System - Quiet Luxury */
+  --bg:           #fffcf7;   /* surface */
+  --bg-alt:       #fcf9f3;   /* surface-container-low */
+  --bg-white:     #ffffff;   /* surface-container-lowest */
+  --bg-heavy:     #f6f4ec;   /* surface-container-highest */
+  --text:         #383831;   /* on-surface */
+  --text-mid:     #65655c;   /* on-surface-variant */
+  --text-muted:   #818178;   /* outline */
+  --gold:         #566252;   /* primary: Sage */
+  --gold-light:   #eae1d9;   /* secondary-container: Blush */
+  --outline-variant: #babab0;
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'Jost', system-ui, sans-serif;
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body:    'Manrope', system-ui, sans-serif;
 
   /* Spacing */
   --section-pad:  120px;

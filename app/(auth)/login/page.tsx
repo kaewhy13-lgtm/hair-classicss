@@ -52,7 +52,7 @@ export default function LoginPage() {
       <div className="relative overflow-hidden min-h-[40vh] md:min-h-[calc(100vh-64px)]">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1527799820374-87891c6b5b37?w=1000&auto=format&fit=crop&q=85')" }}
+          style={{ backgroundImage: "url('/images/login-bg.png')" }}
         />
         {/* Dark gradient overlay at bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
