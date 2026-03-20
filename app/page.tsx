@@ -57,7 +57,7 @@ export default function Home() {
 </div>
 </div>
 <div className="relative min-h-[500px] md:min-h-full">
-<img className="absolute inset-0 w-full h-h-full object-cover" data-alt="Editorial close up of textured hair styling in progress" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmrPgy9EtnQJhuZH_IbEravgLdmoc5fI-Ue9gLh1zSCRzTzsrzfLg__1Ij-4GF7RvVFHHP_ssEaaSU31RX91Oy7CupfzfXUhQhIt0c2sObQKLX3cg3KDHpv_HZY3RN0evXuPX-RpXP3KNOsVnohs7Kr0Wan0OfoeioJYG7R8ijoFVBzcZmXTQWbQrhRcBa_-YuBmypCANEEi21cG1iuNI5XAGKzT_M2j2pNNaC4dbOoPh_sy6df_OmeWT9EXjQDIYM-P3KLMWe-Bw"/>
+<img className="absolute inset-0 w-full h-h-full object-cover" data-alt="Editorial close up of textured hair styling in progress" src="/images/craftsmanship.png"/>
 </div>
 </section>
 {/*  SERVICES GRID  */}
