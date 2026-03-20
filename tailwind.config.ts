@@ -5,13 +5,11 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./styles/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
-      // ─── Subtle Elegance Color System ─────────────────────
       colors: {
-        parchment:  { DEFAULT: "#FAF8F5", mid: "#F3EDE6", deep: "#EAE3D9" },
         linen:      { DEFAULT: "#EAE3D9", deep: "#DED4C6", darker: "#CEC0AE" },
         dark:       { DEFAULT: "#1C1410", mid: "#2E2018", light: "#3D2E27" },
         taupe:      { DEFAULT: "#8B7B72", light: "#A8998F", dark: "#5A4A40"  },

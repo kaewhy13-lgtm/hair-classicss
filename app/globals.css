@@ -363,3 +363,39 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
+
+
+/* STITCH CUSTOM STYLES */
+
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+      }
+      .editorial-shadow {
+        shadow: 0 20px 50px -20px rgba(79, 69, 60, 0.08);
+      }
+      .marquee-container {
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        gap: 2rem;
+      }
+      .marquee-content {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: space-around;
+        min-width: 100%;
+        gap: 2rem;
+      }
+      @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+      }
+      .animate-scroll {
+        animation: scroll 40s linear infinite;
+      }
+      .glass-cta {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    
