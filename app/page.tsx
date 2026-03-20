@@ -1,6 +1,9 @@
 
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   return (
@@ -11,8 +14,13 @@ export default function Home() {
 <img className="w-full h-full object-cover brightness-95" data-alt="Airy and calm luxury hair salon interior with soft natural light" src="/images/hero_linen.png"/>
 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
 </div>
-<div className="relative z-10 text-center px-6">
-<span className="block font-label uppercase text-[0.7rem] tracking-[0.4rem] text-accent-gold mb-6">EST. LONDON · 2018</span>
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  animate={{ opacity: 1, y: 0 }} 
+  transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
+  className="relative z-10 text-center px-6"
+>
+<span className="block font-label uppercase text-[0.7rem] tracking-[0.4rem] text-accent-gold mb-6">EST. SILIGURI · 2024</span>
 <h1 className="font-headline text-6xl md:text-8xl font-light text-white tracking-tighter leading-tight mb-12">
                 Hair Classic:<br/>
 <span className="italic font-light opacity-90">Quiet Elegance</span>
@@ -20,7 +28,7 @@ export default function Home() {
 <Link className="inline-block glass-cta text-white font-label uppercase text-[0.75rem] tracking-[0.25rem] px-10 py-5 hover:bg-white hover:text-stone-900 transition-all duration-700" href="/client/booking">
                 RESERVE YOUR CHAIR
             </Link>
-</div>
+</motion.div>
 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
 <span className="material-symbols-outlined text-white/50 font-extralight">keyboard_double_arrow_down</span>
 </div>
@@ -61,43 +69,82 @@ export default function Home() {
 </div>
 <Link className="font-label uppercase text-[0.75rem] tracking-[0.25rem] border-b border-accent-gold pb-2 hover:text-accent-gold transition-colors" href="/client/booking">BOOK NOW →</Link>
 </div>
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-[0.5px] border-accent-gold/20">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-0 border-[0.5px] border-accent-gold/20">
 {/*  Card 1  */}
-<div className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500">
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0 }}
+  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
+>
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Soft subtle balayage blonde hair highlights" src="/images/balayage_linen.png"/>
 </div>
 <h3 className="font-headline text-2xl font-light mb-2">Balayage &amp; Colour</h3>
 <span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £280</span>
 <p className="text-on-surface-variant text-sm leading-relaxed font-light">Hand-painted transitions that mimic natural sunlight and depth.</p>
-</div>
+</motion.div>
 {/*  Card 2  */}
-<div className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500">
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.15 }}
+  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
+>
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Sleek precision hair cut bob style" src="/images/cut_linen.png"/>
 </div>
 <h3 className="font-headline text-2xl font-light mb-2">Precision Cut</h3>
 <span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £95</span>
 <p className="text-on-surface-variant text-sm leading-relaxed font-light">Architectural sculpting tailored to your unique facial geometry.</p>
-</div>
+</motion.div>
 {/*  Card 3  */}
-<div className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500">
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.3 }}
+  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
+>
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Healthy smooth hair after keratin treatment" src="/images/keratin_linen.png"/>
 </div>
 <h3 className="font-headline text-2xl font-light mb-2">Keratin Treatment</h3>
 <span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £240</span>
 <p className="text-on-surface-variant text-sm leading-relaxed font-light">Long-lasting silkiness and reconstruction for effortless radiance.</p>
-</div>
+</motion.div>
 {/*  Card 4  */}
-<div className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500">
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.45 }}
+  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
+>
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Elegant minimalist bridal hair styling" src="/images/bridal_linen.png"/>
 </div>
 <h3 className="font-headline text-2xl font-light mb-2">Bridal Styling</h3>
 <span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £160</span>
 <p className="text-on-surface-variant text-sm leading-relaxed font-light">Bespoke bridal artistry for your most significant moments.</p>
+</motion.div>
+{/*  Card 5 - Nails  */}
+<motion.div 
+  initial={{ opacity: 0, y: 30 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.6 }}
+  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
+>
+<div className="mb-8 overflow-hidden">
+<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist luxury design gel nails" src="/images/service_nails.png"/>
 </div>
+<h3 className="font-headline text-2xl font-light mb-2">Manicure & Nail Artistry</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £45</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Minimalist definition and high-end gel extensions crafted with editorial exactitude.</p>
+</motion.div>
 </div>
 </section>
 {/*  DARK STATS BAND  */}
@@ -148,11 +195,11 @@ export default function Home() {
 {/*  Testimonial 3  */}
 <div className="flex flex-col items-center text-center">
 <p className="font-headline italic text-2xl text-stone-800 leading-relaxed mb-8">
-                        "The hair passport system is brilliant. Wherever I am in the world, they know exactly what my formula is. Luxury at its best."
+                        "The gel manicures here are absolute perfection. My extensions lasted 4 weeks with zero lifting. A masterclass in durability and form."
                     </p>
 <div className="mt-auto">
 <span className="block font-label uppercase text-[0.75rem] tracking-[0.1rem] text-stone-900 font-bold mb-1">Sienna Blake</span>
-<span className="block font-label text-[0.65rem] tracking-[0.1rem] text-stone-500 uppercase">Member Since 2019</span>
+<span className="block font-label text-[0.65rem] tracking-[0.1rem] text-stone-500 uppercase">Nail Atelier Client</span>
 </div>
 </div>
 </div>

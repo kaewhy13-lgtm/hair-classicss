@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { generateTimeSlots, isSlotInPast } from "@/lib/utils";
 import { format, addMinutes } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     const supabase = await createClient();

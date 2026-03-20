@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 const createBookingSchema = z.object({
   stylist_id:       z.string().uuid(),
   service_id:       z.string().uuid(),

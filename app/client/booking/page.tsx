@@ -42,8 +42,8 @@ export default function BookingStepOne() {
       } else {
         // Fallback for visual testing
         setStylists([
-          { id: 'stylist-1', salon_id: 'salon-1', role: 'Artistic Director', bio: 'Master stylist with 10+ years experience.', profiles: { full_name: 'Julianne Moore' }, specializations: ['Cut', 'Style'] },
-          { id: 'stylist-2', salon_id: 'salon-1', role: 'Master Colorist', bio: 'Balayage and highlights expert.', profiles: { full_name: 'David Beckham' }, specializations: ['Colour', 'Balayage'] }
+          { id: 'stylist-1', salon_id: 'salon-1', role: 'Senior Stylist Architect & Highlight Expert', bio: 'Architecture and precision sculpting with highlights.', profiles: { full_name: 'Niraj Zimba' }, specializations: ['Highlights', 'Cut'] },
+          { id: 'stylist-2', salon_id: 'salon-1', role: 'Hair Stylist', bio: 'High-fashion texture framing and styling.', profiles: { full_name: 'Abhishek' }, specializations: ['Styling', 'Bridal'] }
         ]);
       }
       setLoading(false);
@@ -166,40 +166,42 @@ export default function BookingStepOne() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   {stylists.map((stylist) => (
-                    <div 
+                    <motion.div 
                       key={stylist.id}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
                       onClick={() => setSelectedStylist(stylist.id)}
-                      className={`group relative cursor-pointer border p-8 bg-surface-container-lowest transition-all hover:border-secondary ${
-                        selectedStylist === stylist.id ? 'border-secondary ring-1 ring-secondary' : 'border-outline-variant'
+                      className={`group relative cursor-pointer border p-8 transition-all duration-500 ${
+                        selectedStylist === stylist.id ? 'bg-accent-gold/5 border-accent-gold shadow-sm' : 'bg-surface-container-lowest border-outline-variant hover:border-accent-gold/40'
                       }`}
                     >
                       <div className={`absolute top-0 right-0 p-4 transition-opacity ${
                         selectedStylist === stylist.id ? 'opacity-100' : 'opacity-0'
                       }`}>
-                        <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <span className="material-symbols-outlined text-accent-gold" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                       </div>
                       <div className="flex flex-col items-start gap-6">
-                        <div className="w-16 h-16 bg-gold text-on-primary flex items-center justify-center text-2xl font-display font-light">
+                        <div className="w-16 h-16 bg-accent-gold text-white flex items-center justify-center text-2xl font-display font-light">
                           {stylist.profiles?.full_name?.charAt(0) || "S"}
                         </div>
                         <div>
-                          <h3 className="font-display text-xl mb-1">{stylist.profiles?.full_name || "Stylist"}</h3>
-                          <p className="label text-[11px] uppercase tracking-[0.15em] text-secondary mb-4">
+                          <h3 className="font-display text-xl mb-1 text-stone-900">{stylist.profiles?.full_name || "Stylist"}</h3>
+                          <p className="label text-[11px] uppercase tracking-[0.15em] text-accent-gold mb-4">
                             {stylist.role || "Stylist"}
                           </p>
-                          <p className="text-taupe text-sm leading-relaxed mb-6">
+                          <p className="text-stone-600 text-sm leading-relaxed mb-6">
                             {stylist.bio || "Bespoke artistry tailored for you."}
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {stylist.specializations?.slice(0, 2).map((s: string) => (
-                              <span key={s} className="label text-[9px] uppercase tracking-widest border border-outline-variant/30 px-3 py-1">
+                              <span key={s} className="label text-[9px] uppercase tracking-widest border border-outline-variant/30 px-3 py-1 text-stone-500">
                                 {s}
                               </span>
                             ))}
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}
@@ -216,31 +218,33 @@ export default function BookingStepOne() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {services.map((service) => (
-                    <div 
+                    <motion.div 
                       key={service.id}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
                       onClick={() => setSelectedService(service.id)}
-                      className={`group relative cursor-pointer border p-8 bg-surface-container-lowest transition-all hover:border-secondary ${
-                        selectedService === service.id ? 'border-secondary ring-1 ring-secondary' : 'border-outline-variant'
+                      className={`group relative cursor-pointer border p-8 transition-all duration-300 ${
+                        selectedService === service.id ? 'bg-accent-gold/5 border-accent-gold shadow-sm' : 'bg-surface-container-lowest border-outline-variant hover:border-accent-gold/40'
                       }`}
                     >
                       <div className={`absolute top-0 right-0 p-4 transition-opacity ${
                         selectedService === service.id ? 'opacity-100' : 'opacity-0'
                       }`}>
-                        <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <span className="material-symbols-outlined text-accent-gold" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                       </div>
                       <div className="flex flex-col items-start gap-4">
                         <div className="flex justify-between w-full items-start">
-                          <h3 className="font-display text-xl">{service.name}</h3>
-                          <span className="label text-secondary">£{service.price}</span>
+                          <h3 className="font-display text-xl text-stone-900">{service.name}</h3>
+                          <span className="label text-accent-gold">£{service.price}</span>
                         </div>
-                        <p className="text-taupe text-sm leading-relaxed">
+                        <p className="text-stone-600 text-sm leading-relaxed">
                           {service.description || "Bespoke service tailored for you."}
                         </p>
-                        <span className="label text-[10px] uppercase tracking-wider text-text-muted">
+                        <span className="label text-[10px] uppercase tracking-wider text-stone-400">
                           {service.duration_minutes} MIN
                         </span>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}
@@ -302,10 +306,10 @@ export default function BookingStepOne() {
 
         {/*  Bottom Action Bar  */}
         {step < 4 && (
-          <div className="w-full max-w-3xl flex items-center justify-between border-t border-outline-variant pt-8">
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-lg flex items-center justify-between p-4 bg-white/70 backdrop-blur-md border border-accent-gold/20 rounded-full shadow-lg z-20">
             <button 
               onClick={() => setStep(prev => Math.max(1, prev - 1))}
-              className={`btn-aura ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
+              className={`font-label uppercase text-[0.7rem] tracking-[0.2em] text-stone-600 hover:text-accent-gold px-4 py-2 transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
             >
               Back
             </button>
@@ -313,7 +317,7 @@ export default function BookingStepOne() {
             <button 
               onClick={() => step === 3 ? handleConfirm() : setStep(prev => prev + 1)}
               disabled={(step === 1 && !selectedStylist) || (step === 2 && !selectedService) || (step === 3 && (!selectedDate || !selectedTime)) || submitting}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="bg-accent-gold text-white font-label uppercase text-[0.7rem] tracking-[0.2em] px-8 py-3 rounded-full shadow-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-opacity-90 transition-all flex items-center gap-2"
             >
               {submitting ? 'Processing...' : step === 3 ? 'Confirm Booking' : 'Continue'}
             </button>
@@ -322,18 +326,7 @@ export default function BookingStepOne() {
       </main>
 {/*  Bottom Action Bar  */}
 
-{/*  Global Footer  */}
-<div className="w-full py-24 px-8 bg-[#fbf9f3] mt-auto">
-<div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-8">
-<div className="text-lg font-light tracking-widest text-black font-headline">Hair Classic</div>
-<div className="flex gap-8">
-<a className="font-label text-[10px] uppercase tracking-[0.2em] text-[#8A7F78] hover:text-[#75593c] transition-colors" href="/">Privacy Policy</a>
-<a className="font-label text-[10px] uppercase tracking-[0.2em] text-[#8A7F78] hover:text-[#75593c] transition-colors" href="/">Terms of Service</a>
-<a className="font-label text-[10px] uppercase tracking-[0.2em] text-[#8A7F78] hover:text-[#75593c] transition-colors" href="/">Accessibility</a>
-</div>
-<div className="font-label text-[10px] uppercase tracking-[0.2em] text-[#75593c]">© 2024 Hair Classic. All Rights Reserved.</div>
-</div>
-</div>
+
 
     </div>
   );

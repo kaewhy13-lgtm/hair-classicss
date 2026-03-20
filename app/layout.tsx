@@ -5,12 +5,12 @@ import { Footer }  from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title:       { default: "Hair Classic", template: "%s | Hair Classic" },
-  description: "London's most refined hair salon. Bespoke styling, artisan colour, and an experience of quiet, lasting elegance.",
-  keywords:    ["luxury hair salon", "London salon", "balayage", "hair colour", "keratin treatment"],
+  description: "Siliguri's most refined hair salon. Bespoke styling, artisan colour, and an experience of quiet, lasting elegance.",
+  keywords:    ["luxury hair salon", "Siliguri salon", "balayage", "hair colour", "keratin treatment"],
   openGraph: {
     type:     "website",
-    locale:   "en_GB",
-    url:      "https://hairclassic.co.uk",
+    locale:   "en_IN",
+    url:      "https://hairclassic.in",
     siteName: "Hair Classic",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Hair Classic — Quiet Elegance" }],
   },

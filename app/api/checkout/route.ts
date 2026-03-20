@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import DodoPayments from "dodopayments";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 const dodopayments = new DodoPayments({
   bearerToken: process.env.DODOPAYMENTS_API_KEY || "test_token",
 });
