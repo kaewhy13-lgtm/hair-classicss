@@ -102,7 +102,51 @@ export async function POST(request: Request) {
       .single();
 
     if (bookingError) {
+      if (bookingError.message?.includes("Double booking detected")) {
+        return NextResponse.json({ error: "This time slot is no longer available" }, { status: 409 });
+      }
       return NextResponse.json({ error: bookingError.message }, { status: 500 });
+    }
+
+    // Attempt to send email notification to the salon
+    try {
+      const resendApiKey = process.env.RESEND_API_KEY;
+      if (resendApiKey) {
+        const { data: salon } = await supabase
+          .from("salons")
+          .select("name, email")
+          .eq("id", salon_id)
+          .single();
+
+        if (salon?.email) {
+          const clientEmail = user.email || "A client";
+          await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${resendApiKey}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              from: "Hair Classic Notifications <onboarding@resend.dev>",
+              to: [salon.email],
+              subject: `New Booking at ${salon.name}`,
+              html: `
+                <h2>New Booking Created</h2>
+                <p>Hello,</p>
+                <p>A new booking has just been scheduled at your salon.</p>
+                <ul>
+                  <li><strong>Client Email:</strong> ${clientEmail}</li>
+                  <li><strong>Start Time:</strong> ${new Date(starts_at).toLocaleString()}</li>
+                  <li><strong>Service Details:</strong> View your dashboard for full information.</li>
+                </ul>
+                <p>Thank you,<br/>Hair Classic System</p>
+              `
+            })
+          });
+        }
+      }
+    } catch (emailErr) {
+      console.error("[POST /api/bookings] Failed to send email:", emailErr);
     }
 
     return NextResponse.json({ booking }, { status: 201 });

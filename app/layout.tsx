@@ -4,19 +4,30 @@ import { Navbar }  from "@/components/layout/Navbar";
 import { Footer }  from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title:       { default: "Hair Classic", template: "%s | Hair Classic" },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://hairclassic.in"),
+  title:       { default: "Hair Classic | Quiet Luxury Salon", template: "%s | Hair Classic" },
   description: "Siliguri's most refined hair salon. Bespoke styling, artisan colour, and an experience of quiet, lasting elegance.",
-  keywords:    ["luxury hair salon", "Siliguri salon", "balayage", "hair colour", "keratin treatment"],
+  keywords:    ["luxury hair salon", "Siliguri salon", "balayage", "hair colour", "keratin treatment", "bespoke styling", "premium hair care"],
   openGraph: {
+    title:    "Hair Classic | Quiet Luxury Salon",
+    description: "Siliguri's most refined hair salon. Bespoke styling, artisan colour, and an experience of quiet, lasting elegance.",
     type:     "website",
     locale:   "en_IN",
-    url:      "https://hairclassic.in",
+    url:      "/",
     siteName: "Hair Classic",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Hair Classic — Quiet Elegance" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hair Classic | Quiet Luxury Salon",
+    description: "Siliguri's most refined hair salon.",
+    images: ["/og-image.jpg"],
   },
   manifest: "/manifest.json",
   icons:    { apple: "/icon.svg", icon: "/icon.svg" },
 };
+
+import { CookieNotice } from "@/components/ui/CookieNotice";
 
 export const viewport: Viewport = {
   themeColor: "#ECEAE4",
@@ -39,10 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet" 
         />
       </head>
-      <body className="bg-surface text-on-surface font-body antialiased overflow-x-hidden">
+      <body className="bg-surface text-on-surface font-body antialiased overflow-x-hidden flex flex-col min-h-screen">
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
+        <CookieNotice />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 {
-  "name": "Hair Classic",
+  "name": "Hair Classic - Luxury Salon & Spa",
   "short_name": "Hair Classic",
-  "description": "Quiet luxury bespoke styling and care.",
+  "description": "Siliguri's most refined hair salon. Book bespoke styling, artisan colour, and an experience of quiet luxury today.",
+  "categories": ["beauty", "lifestyle", "shopping", "health", "fitness"],
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ECEAE4",
