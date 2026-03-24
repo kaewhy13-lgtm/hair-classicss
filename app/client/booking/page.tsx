@@ -73,8 +73,47 @@ export default function BookingStepOne() {
         setServices(data);
       } else {
         setServices([
-          { id: 'service-1', name: 'Precision Haircut', price: 95.00, duration_minutes: 60, description: 'Tailored with artistic precision' },
-          { id: 'service-2', name: 'Balayage & Colour', price: 280.00, duration_minutes: 150, description: 'Hand-painted natural gradients' }
+          // CARE+
+          { id: 'custom-1', name: 'Hair Spa', price: 500.00, duration_minutes: 45, category: 'Care+' },
+          { id: 'custom-2', name: 'Hair Spa - Anti Hair Fall', price: 700.00, duration_minutes: 60, category: 'Care+' },
+          { id: 'custom-3', name: 'Hair Spa - Anti Dandruff', price: 700.00, duration_minutes: 60, category: 'Care+' },
+          { id: 'custom-4', name: 'Fiber Clinix', price: 1500.00, duration_minutes: 60, category: 'Care+' },
+          { id: 'custom-5', name: 'K18 Treatment', price: 2000.00, duration_minutes: 30, category: 'Care+' },
+          { id: 'custom-6', name: 'Olaplex Treatment', price: 3000.00, duration_minutes: 60, category: 'Care+' },
+          { id: 'custom-7', name: 'Olaplex Hair Spa', price: 1000.00, duration_minutes: 60, category: 'Care+' },
+          { id: 'custom-8', name: 'Head Massage', price: 400.00, duration_minutes: 30, category: 'Care+' },
+          { id: 'custom-9', name: 'Head Massage With Hair Wash', price: 500.00, duration_minutes: 45, category: 'Care+' },
+          
+          // RIKA WAXING
+          { id: 'custom-10', name: 'Half Leg Waxing', price: 350.00, duration_minutes: 30, category: 'Rika Waxing' },
+          { id: 'custom-11', name: 'Full Leg Waxing', price: 700.00, duration_minutes: 45, category: 'Rika Waxing' },
+          { id: 'custom-12', name: 'Half Arms Waxing', price: 200.00, duration_minutes: 20, category: 'Rika Waxing' },
+          { id: 'custom-13', name: 'Full Arms Waxing', price: 400.00, duration_minutes: 30, category: 'Rika Waxing' },
+          { id: 'custom-14', name: 'Full Body Waxing', price: 2500.00, duration_minutes: 120, category: 'Rika Waxing' },
+          { id: 'custom-15', name: 'Upper Lip Waxing', price: 50.00, duration_minutes: 10, category: 'Rika Waxing' },
+          { id: 'custom-16', name: 'Full Face Waxing', price: 200.00, duration_minutes: 30, category: 'Rika Waxing' },
+          { id: 'custom-17', name: 'Side Locks Waxing', price: 100.00, duration_minutes: 15, category: 'Rika Waxing' },
+          { id: 'custom-18', name: 'Under Arms Waxing', price: 200.00, duration_minutes: 15, category: 'Rika Waxing' },
+          { id: 'custom-19', name: 'Neck Waxing', price: 150.00, duration_minutes: 15, category: 'Rika Waxing' },
+          { id: 'custom-20', name: 'Forehead Waxing', price: 50.00, duration_minutes: 10, category: 'Rika Waxing' },
+          
+          // FOR HIM
+          { id: 'custom-21', name: 'Hair Cut Boy', price: 150.00, duration_minutes: 30, category: 'For Him' },
+          { id: 'custom-22', name: 'Hair Cut Man', price: 200.00, duration_minutes: 45, category: 'For Him' },
+          { id: 'custom-23', name: 'Beard Trim', price: 100.00, duration_minutes: 30, category: 'For Him' },
+          { id: 'custom-24', name: 'Beard Colour', price: 200.00, duration_minutes: 30, category: 'For Him' },
+          { id: 'custom-25', name: 'Global Color Upto 4 Inch', price: 700.00, duration_minutes: 60, category: 'For Him' },
+          { id: 'custom-26', name: 'Highlights For Him', price: 2000.00, duration_minutes: 120, category: 'For Him' },
+          { id: 'custom-27', name: 'Hair Spa (For Him)', price: 500.00, duration_minutes: 45, category: 'For Him' },
+          
+          // BEAUTY
+          { id: 'custom-30', name: 'Eyebrows Threading', price: 50.00, duration_minutes: 15, category: 'Beauty' },
+          { id: 'custom-31', name: 'Lower Lip Threading', price: 20.00, duration_minutes: 10, category: 'Beauty' },
+          { id: 'custom-32', name: 'Chin Threading', price: 50.00, duration_minutes: 10, category: 'Beauty' },
+          { id: 'custom-33', name: 'Neck Threading', price: 50.00, duration_minutes: 15, category: 'Beauty' },
+          { id: 'custom-34', name: 'Forehead Threading', price: 20.00, duration_minutes: 10, category: 'Beauty' },
+          { id: 'custom-35', name: 'Full Face Threading', price: 200.00, duration_minutes: 30, category: 'Beauty' },
+          { id: 'custom-36', name: 'Side Lock Threading', price: 50.00, duration_minutes: 15, category: 'Beauty' }
         ]);
       }
       setServicesLoading(false);
