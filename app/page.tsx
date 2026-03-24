@@ -81,9 +81,9 @@ export default function Home() {
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Soft subtle balayage blonde hair highlights" src="/images/balayage_linen.png"/>
 </div>
-<h3 className="font-headline text-2xl font-light mb-2">Balayage &amp; Colour</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £280</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Hand-painted transitions that mimic natural sunlight and depth.</p>
+<h3 className="font-headline text-2xl font-light mb-2">Olaplex Treatment</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹3000</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Bond-building luxury repair mask for ultimate strength.</p>
 </motion.div>
 {/*  Card 2  */}
 <motion.div 
@@ -96,9 +96,9 @@ export default function Home() {
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Sleek precision hair cut bob style" src="/images/cut_linen.png"/>
 </div>
-<h3 className="font-headline text-2xl font-light mb-2">Precision Cut</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £95</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Architectural sculpting tailored to your unique facial geometry.</p>
+<h3 className="font-headline text-2xl font-light mb-2">Hair Cut Man</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹200</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Classic and modern styles crafted with editorial exactitude.</p>
 </motion.div>
 {/*  Card 3  */}
 <motion.div 
@@ -111,9 +111,9 @@ export default function Home() {
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Healthy smooth hair after keratin treatment" src="/images/keratin_linen.png"/>
 </div>
-<h3 className="font-headline text-2xl font-light mb-2">Keratin Treatment</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £240</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Long-lasting silkiness and reconstruction for effortless radiance.</p>
+<h3 className="font-headline text-2xl font-light mb-2">Fiber Clinix</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹1500</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Advanced repair technology restoring inner and outer hair structure.</p>
 </motion.div>
 {/*  Card 4  */}
 <motion.div 
@@ -126,11 +126,11 @@ export default function Home() {
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Elegant minimalist bridal hair styling" src="/images/bridal_linen.png"/>
 </div>
-<h3 className="font-headline text-2xl font-light mb-2">Bridal Styling</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £160</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Bespoke bridal artistry for your most significant moments.</p>
+<h3 className="font-headline text-2xl font-light mb-2">Body Waxing & Spa</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹2500</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Rika Waxing and Spa indulgences for your most significant moments.</p>
 </motion.div>
-{/*  Card 5 - Nails  */}
+{/*  Card 5  */}
 <motion.div 
   initial={{ opacity: 0, y: 30 }} 
   whileInView={{ opacity: 1, y: 0 }} 
@@ -141,9 +141,9 @@ export default function Home() {
 <div className="mb-8 overflow-hidden">
 <img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist luxury design gel nails" src="/images/service_nails.png"/>
 </div>
-<h3 className="font-headline text-2xl font-light mb-2">Manicure & Nail Artistry</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM £45</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Minimalist definition and high-end gel extensions crafted with editorial exactitude.</p>
+<h3 className="font-headline text-2xl font-light mb-2">Deep Hair Spa</h3>
+<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹500</span>
+<p className="text-on-surface-variant text-sm leading-relaxed font-light">Deep nourishing hair spa targeting anti-fall and anti-dandruff.</p>
 </motion.div>
 </div>
 </section>
