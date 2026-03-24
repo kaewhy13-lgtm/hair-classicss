@@ -214,7 +214,7 @@ export default function MembershipPage() {
                       fontWeight: 300,
                       color: "#1A1814",
                     }}>
-                      £{billing === "monthly" ? tier.monthly : Math.round(tier.annual / 12)}
+                      ₹{billing === "monthly" ? tier.monthly : Math.round(tier.annual / 12)}
                     </span>
                     <span style={{
                       fontFamily: "'Jost', system-ui, sans-serif",
@@ -231,7 +231,7 @@ export default function MembershipPage() {
                       color: "#8A7F78",
                       marginTop: "4px",
                     }}>
-                      £{tier.annual} billed annually
+                      ₹{tier.annual} billed annually
                     </p>
                   )}
                 </div>

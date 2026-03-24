@@ -274,7 +274,7 @@ export default function BookingStepOne() {
                       <div className="flex flex-col items-start gap-4">
                         <div className="flex justify-between w-full items-start">
                           <h3 className="font-display text-xl text-stone-900">{service.name}</h3>
-                          <span className="label text-accent-gold">£{service.price}</span>
+                          <span className="label text-accent-gold">₹{service.price}</span>
                         </div>
                         <p className="text-stone-600 text-sm leading-relaxed">
                           {service.description || "Bespoke service tailored for you."}

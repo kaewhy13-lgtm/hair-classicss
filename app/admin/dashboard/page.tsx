@@ -15,7 +15,7 @@ export default async function AdminDashboardPage() {
   const stats = [
     { label: "Today's Appts", value: "12", icon: Calendar },
     { label: "Pending Conf.", value: "4", icon: Clock },
-    { label: "Revenue (Today)", value: "£1,240", icon: DollarSign },
+    { label: "Revenue (Today)", value: "₹1,240", icon: DollarSign },
     { label: "New Clients", value: "3", icon: Users },
   ];
 
@@ -75,7 +75,7 @@ export default async function AdminDashboardPage() {
                         {booking.status}
                       </span>
                     </td>
-                    <td className="py-5 text-right font-medium text-dark">£{booking.total_amount}</td>
+                    <td className="py-5 text-right font-medium text-dark">₹{booking.total_amount}</td>
                   </tr>
                 ))}
               </tbody>
