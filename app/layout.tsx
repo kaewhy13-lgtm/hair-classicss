@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 };
 
 import { CookieNotice } from "@/components/ui/CookieNotice";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 
 export const viewport: Viewport = {
   themeColor: "#ECEAE4",
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-surface text-on-surface font-body antialiased overflow-x-hidden flex flex-col min-h-screen">
+        <CustomCursor />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

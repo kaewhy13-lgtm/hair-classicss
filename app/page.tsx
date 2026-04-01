@@ -1,211 +1,32 @@
-
-'use client';
-
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { HeroImmersive } from "@/components/sections/hero-immersive";
+import { BentoGrid } from "@/components/sections/bento-grid";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      {/*  HERO SECTION  */}
-<section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-<div className="absolute inset-0 z-0">
-<img className="w-full h-full object-cover brightness-95" data-alt="Airy and calm luxury hair salon interior with soft natural light" src="/images/hero_linen.png"/>
-<div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
-</div>
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  animate={{ opacity: 1, y: 0 }} 
-  transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
-  className="relative z-10 text-center px-6"
->
-<span className="block font-label uppercase text-[0.7rem] tracking-[0.4rem] text-accent-gold mb-6">EST. SILIGURI · 2024</span>
-<h1 className="font-headline text-6xl md:text-8xl font-light text-white tracking-tighter leading-tight mb-12">
-                Hair Classic:<br/>
-<span className="italic font-light opacity-90">Quiet Elegance</span>
-</h1>
-<Link className="inline-block glass-cta text-white font-label uppercase text-[0.75rem] tracking-[0.25rem] px-10 py-5 hover:bg-white hover:text-stone-900 transition-all duration-700" href="/client/booking">
-                RESERVE YOUR CHAIR
-            </Link>
-</motion.div>
-<div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-<span className="material-symbols-outlined text-white/50 font-extralight">keyboard_double_arrow_down</span>
-</div>
-</section>
-{/*  MARQUEE BAND  */}
-<div className="w-full bg-surface-container-low py-4 overflow-hidden border-y-[0.5px] border-accent-gold/20">
-<div className="marquee-container">
-<div className="marquee-content animate-scroll flex gap-12 items-center"><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BESPOKE COLOUR</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">PRECISION CUTS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">KERATIN TREATMENTS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BALAYAGE</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BRIDAL STYLING</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">CONSULTATION</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">NAILS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">SILIGURI</span></div>
-{/*  Duplicate for infinite effect  */}
-<div aria-hidden="true" className="marquee-content animate-scroll flex gap-12 items-center"><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BESPOKE COLOUR</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">PRECISION CUTS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">KERATIN TREATMENTS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BALAYAGE</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">BRIDAL STYLING</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">CONSULTATION</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">NAILS</span><span className="w-1 h-1 rounded-full bg-accent-gold/30"></span><span className="font-label uppercase text-[0.65rem] tracking-[0.25rem] text-accent-gold whitespace-nowrap">SILIGURI</span></div>
-</div>
-</div>
-{/*  SPLIT SECTION  */}
-<section className="grid grid-cols-1 md:grid-cols-2 min-h-[819px]">
-<div className="bg-surface-container-low flex items-center justify-center p-12 md:p-24 lg:p-32">
-<div className="max-w-md">
-<span className="font-label uppercase text-[0.7rem] tracking-[0.3rem] text-accent-gold block mb-8">The Art of Detail</span>
-<h2 className="font-headline text-5xl font-light text-stone-900 leading-tight mb-8">Craftsmanship Without Compromise</h2>
-<p className="text-on-surface-variant font-body text-lg leading-relaxed mb-10">
-                    We believe hair is the ultimate canvas. At Hair Classic, we merge architectural precision with organic fluidity to create styles that aren't just seen—they are experienced.
-                </p>
-<Link className="group inline-flex items-center font-label uppercase text-[0.75rem] tracking-[0.2rem] text-stone-900" href="/stylists">
-                    DISCOVER OUR STYLISTS
-                    <span className="ml-4 transform group-hover:translate-x-2 transition-transform duration-400">→</span>
-</Link>
-</div>
-</div>
-<div className="relative min-h-[500px] md:min-h-full">
-<img className="absolute inset-0 w-full h-h-full object-cover" data-alt="Editorial close up of textured hair styling in progress" src="/images/craftsmanship.png"/>
-</div>
-</section>
-{/*  SERVICES GRID  */}
-<section id="services" className="py-32 px-8 max-w-screen-2xl mx-auto">
-<div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-<div>
-<span className="font-label uppercase text-[0.7rem] tracking-[0.3rem] text-accent-gold block mb-4">Curated Offerings</span>
-<h2 className="font-headline text-6xl font-light text-stone-900">Our Services</h2>
-</div>
-<Link className="font-label uppercase text-[0.75rem] tracking-[0.25rem] border-b border-accent-gold pb-2 hover:text-accent-gold transition-colors" href="/client/booking">BOOK NOW →</Link>
-</div>
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-0 border-[0.5px] border-accent-gold/20">
-{/*  Card 1  */}
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  whileInView={{ opacity: 1, y: 0 }} 
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0 }}
-  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
->
-<div className="mb-8 overflow-hidden">
-<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Soft subtle balayage blonde hair highlights" src="/images/balayage_linen.png"/>
-</div>
-<h3 className="font-headline text-2xl font-light mb-2">Olaplex Treatment</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹3000</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Bond-building luxury repair mask for ultimate strength.</p>
-</motion.div>
-{/*  Card 2  */}
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  whileInView={{ opacity: 1, y: 0 }} 
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.15 }}
-  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
->
-<div className="mb-8 overflow-hidden">
-<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Sleek precision hair cut bob style" src="/images/cut_linen.png"/>
-</div>
-<h3 className="font-headline text-2xl font-light mb-2">Hair Cut Man</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹200</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Classic and modern styles crafted with editorial exactitude.</p>
-</motion.div>
-{/*  Card 3  */}
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  whileInView={{ opacity: 1, y: 0 }} 
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.3 }}
-  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
->
-<div className="mb-8 overflow-hidden">
-<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Healthy smooth hair after keratin treatment" src="/images/keratin_linen.png"/>
-</div>
-<h3 className="font-headline text-2xl font-light mb-2">Fiber Clinix</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹1500</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Advanced repair technology restoring inner and outer hair structure.</p>
-</motion.div>
-{/*  Card 4  */}
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  whileInView={{ opacity: 1, y: 0 }} 
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.45 }}
-  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
->
-<div className="mb-8 overflow-hidden">
-<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Elegant minimalist bridal hair styling" src="/images/bridal_linen.png"/>
-</div>
-<h3 className="font-headline text-2xl font-light mb-2">Body Waxing & Spa</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹2500</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Rika Waxing and Spa indulgences for your most significant moments.</p>
-</motion.div>
-{/*  Card 5  */}
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  whileInView={{ opacity: 1, y: 0 }} 
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.6 }}
-  className="border-[0.5px] border-accent-gold/20 p-8 group hover:bg-surface-container-low transition-colors duration-500"
->
-<div className="mb-8 overflow-hidden">
-<img className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist luxury design gel nails" src="/images/service_nails.png"/>
-</div>
-<h3 className="font-headline text-2xl font-light mb-2">Deep Hair Spa</h3>
-<span className="font-label text-accent-gold block mb-6 tracking-widest text-sm">FROM ₹500</span>
-<p className="text-on-surface-variant text-sm leading-relaxed font-light">Deep nourishing hair spa targeting anti-fall and anti-dandruff.</p>
-</motion.div>
-</div>
-</section>
-{/*  DARK STATS BAND  */}
-<section className="bg-surface-container py-24 border-y-[0.5px] border-accent-gold/10">
-<div className="max-w-screen-2xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-<div className="flex flex-col items-center">
-<span className="font-headline text-5xl md:text-6xl text-stone-900 font-light mb-4">4,200+</span>
-<span className="font-label uppercase text-[0.65rem] tracking-[0.3rem] text-accent-gold">Satisfied Clients</span>
-</div>
-<div className="flex flex-col items-center">
-<span className="font-headline text-5xl md:text-6xl text-stone-900 font-light mb-4">12+</span>
-<span className="font-label uppercase text-[0.65rem] tracking-[0.3rem] text-accent-gold">Years of Mastery</span>
-</div>
-<div className="flex flex-col items-center">
-<span className="font-headline text-5xl md:text-6xl text-stone-900 font-light mb-4">★ 5.0</span>
-<span className="font-label uppercase text-[0.65rem] tracking-[0.3rem] text-accent-gold">Google Rating</span>
-</div>
-</div>
-</section>
-{/*  TESTIMONIALS  */}
-<section className="py-32 px-8 bg-surface-container">
-<div className="max-w-screen-2xl mx-auto">
-<div className="text-center mb-24">
-<span className="font-label uppercase text-[0.7rem] tracking-[0.3rem] text-accent-gold block mb-4">The Experience</span>
-<h2 className="font-headline text-5xl font-light text-stone-900">Salon Diaries</h2>
-</div>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-{/*  Testimonial 1  */}
-<div className="flex flex-col items-center text-center">
-<p className="font-headline italic text-2xl text-stone-800 leading-relaxed mb-8">
-                        "The atmosphere is a sanctuary. My stylist understood exactly what I needed without me saying a word. Truly bespoke."
-                    </p>
-<div className="mt-auto">
-<span className="block font-label uppercase text-[0.75rem] tracking-[0.1rem] text-stone-900 font-bold mb-1">Eleanor Vance</span>
-<span className="block font-label text-[0.65rem] tracking-[0.1rem] text-stone-500 uppercase">Balayage Client</span>
-</div>
-</div>
-{/*  Testimonial 2  */}
-<div className="flex flex-col items-center text-center">
-<p className="font-headline italic text-2xl text-stone-800 leading-relaxed mb-8">
-                        "Finally found a place that treats hair cutting like fine sculpture. The precision is unmatched in all of London."
-                    </p>
-<div className="mt-auto">
-<span className="block font-label uppercase text-[0.75rem] tracking-[0.1rem] text-stone-900 font-bold mb-1">Julian Thorne</span>
-<span className="block font-label text-[0.65rem] tracking-[0.1rem] text-stone-500 uppercase">Precision Cut Client</span>
-</div>
-</div>
-{/*  Testimonial 3  */}
-<div className="flex flex-col items-center text-center">
-<p className="font-headline italic text-2xl text-stone-800 leading-relaxed mb-8">
-                        "The gel manicures here are absolute perfection. My extensions lasted 4 weeks with zero lifting. A masterclass in durability and form."
-                    </p>
-<div className="mt-auto">
-<span className="block font-label uppercase text-[0.75rem] tracking-[0.1rem] text-stone-900 font-bold mb-1">Sienna Blake</span>
-<span className="block font-label text-[0.65rem] tracking-[0.1rem] text-stone-500 uppercase">Nail Atelier Client</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-{/*  FOOTER  */}
+    <div className="flex flex-col min-h-screen bg-ivory">
+      <HeroImmersive />
+      
+      <div className="py-24 max-w-3xl mx-auto px-6 text-center">
+        <h2 className="font-display font-light text-4xl md:text-5xl text-obsidian tracking-tight leading-snug">
+          "A sanctuary of quiet luxury, where every strand is treated with an architect’s precision and an artist’s touch."
+        </h2>
+        <span className="block mt-12 font-label uppercase text-xs tracking-[0.3em] text-accent-gold">
+          The Hair Classic Promise
+        </span>
+      </div>
+
+      <BentoGrid />
+      
+      {/* Footer pre-cap / CTA area */}
+      <section className="bg-obsidian py-32 text-center text-ivory flex flex-col items-center">
+        <span className="font-label uppercase text-[0.6rem] tracking-[0.4em] text-accent-gold mb-8">Begin Your Journey</span>
+        <h2 className="font-display text-5xl md:text-7xl font-light tracking-tight mb-12 max-w-2xl px-6 leading-tight">
+          Reserve Your Chair.
+        </h2>
+        <a href="/client/booking" className="inline-flex items-center justify-center font-label uppercase text-xs tracking-[0.25em] text-obsidian bg-ivory hover:bg-accent-gold hover:text-white transition-all duration-500 px-12 py-5 rounded-full">
+          Book Appointment
+        </a>
+      </section>
     </div>
   );
 }
