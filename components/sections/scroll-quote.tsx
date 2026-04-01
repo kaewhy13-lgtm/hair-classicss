@@ -19,7 +19,7 @@ export const ScrollQuote = () => {
 
   return (
     <div ref={containerRef} className="py-48 max-w-4xl mx-auto px-6 text-center">
-      <h2 className="font-headline font-light text-4xl md:text-6xl text-obsidian tracking-tight leading-snug flex flex-wrap justify-center">
+      <h2 className="font-body font-light text-4xl md:text-6xl text-obsidian tracking-tight leading-snug flex flex-wrap justify-center">
         {words.map((word, i) => {
           const start = i / words.length;
           const end = start + (1 / words.length);
