@@ -1,17 +1,28 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { fadeUpVariant } from "@/lib/motion/variants";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
 export const HeroImmersive = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  
+  // Create a subtle parallax effect pushing the video/image down relative to the viewport
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "35vh"]);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-obsidian">
+    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-obsidian">
       {/* Background Video/Image Placeholder */}
       <motion.div
+        style={{ y }}
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 2, ease: [0.25, 1, 0.5, 1] }}
-        className="absolute inset-0"
+        className="absolute inset-x-0 -top-[10vh] h-[120vh]"
       >
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-obsidian/30 via-transparent to-obsidian/80" />
         <img
