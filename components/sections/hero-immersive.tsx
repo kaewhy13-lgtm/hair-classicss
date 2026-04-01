@@ -15,9 +15,9 @@ export const HeroImmersive = () => {
       >
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-obsidian/30 via-transparent to-obsidian/80" />
         <img
-          src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=2850"
+          src="/images/hero_linen.png"
           alt="Immersive quiet luxury hair salon aesthetic"
-          className="h-full w-full object-cover grayscale-[20%]"
+          className="h-full w-full object-cover"
         />
       </motion.div>
 
@@ -56,16 +56,6 @@ export const HeroImmersive = () => {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        variants={fadeUpVariant}
-        initial="hidden"
-        animate="visible"
-        custom={0.8}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
-      >
-        <span className="material-symbols-outlined text-ivory/50 font-extralight animate-bounce">keyboard_double_arrow_down</span>
-      </motion.div>
     </section>
   );
 };

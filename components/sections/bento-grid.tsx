@@ -26,7 +26,7 @@ export const BentoGrid = () => {
         >
           <div className="absolute inset-0 bg-black/20 transition-colors duration-700 group-hover:bg-black/10 z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1595476108010-b4d1f10d5e43?auto=format&fit=crop&q=80&w=1500" 
+            src="/images/craftsmanship.png" 
             alt="Signature Service" 
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" 
           />
@@ -61,7 +61,7 @@ export const BentoGrid = () => {
         >
            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
            <img 
-            src="https://images.unsplash.com/photo-1594035919702-28e6c4add237?auto=format&fit=crop&q=80&w=1000" 
+            src="/images/service_nails.png" 
             alt="Botanical Oils" 
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" 
           />
