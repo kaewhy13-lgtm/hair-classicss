@@ -31,7 +31,7 @@ export const BentoGrid = () => {
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" 
           />
           <div className="absolute bottom-10 left-10 z-20 pr-10">
-            <h3 className="font-display text-4xl lg:text-5xl text-white font-light tracking-tight mb-4">The Signature Cut</h3>
+            <h3 className="font-headline text-4xl lg:text-5xl text-white font-light tracking-tight mb-4">The Signature Cut</h3>
             <p className="font-body text-white/80 max-w-sm font-light tracking-wide leading-relaxed">
               Precision meets fluidity. A tailored approach designed to define your natural texture and elevate your aesthetic.
             </p>
@@ -44,7 +44,7 @@ export const BentoGrid = () => {
           custom={0.2}
           className="flex flex-col justify-center rounded-editorial bg-espresso p-10 md:col-span-4 min-h-[300px]"
         >
-          <h4 className="font-display text-3xl text-ivory font-light mb-6">Philosophy</h4>
+          <h4 className="font-headline text-3xl text-ivory font-light mb-6">Philosophy</h4>
           <p className="font-body text-sm font-light leading-relaxed text-ivory/70 mb-8">
             We believe that less is fundamentally more. Our approach centers on enhancing your natural texture rather than masking it, creating effortless elegance.
           </p>
@@ -66,7 +66,7 @@ export const BentoGrid = () => {
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" 
           />
           <div className="absolute bottom-8 left-8 z-20">
-            <h4 className="font-display text-2xl text-white font-light">Refined Elements</h4>
+            <h4 className="font-headline text-2xl text-white font-light">Refined Elements</h4>
             <span className="font-label text-xs uppercase text-accent-gold tracking-[0.1em]">Luxury Care Lines</span>
           </div>
         </motion.div>

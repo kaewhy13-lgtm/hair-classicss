@@ -40,8 +40,10 @@ const config: Config = {
       // ─── Typography ──────────────────────────────────────
       fontFamily: {
         display: ["'Newsreader'", "Georgia", "serif"],
+        headline: ["'Newsreader'", "Georgia", "serif"],
         serif:   ["'Newsreader'", "Georgia", "serif"],
         body:    ["'Manrope'", "system-ui", "sans-serif"],
+        label:   ["'Manrope'", "system-ui", "sans-serif"],
         sans:    ["'Manrope'", "system-ui", "sans-serif"],
       },
 

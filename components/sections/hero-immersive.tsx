@@ -28,7 +28,7 @@ export const HeroImmersive = () => {
           initial="hidden"
           animate="visible"
           custom={0}
-          className="font-display text-6xl md:text-8xl lg:text-[7.5rem] font-light tracking-tight"
+          className="font-headline text-6xl md:text-8xl lg:text-[7.5rem] font-light tracking-tight"
         >
           Effortless Elegance
         </motion.h1>
