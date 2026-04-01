@@ -14,7 +14,7 @@ const fadeUp = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-surface pt-36 pb-24 px-6 md:px-12">
+    <div className="min-h-screen bg-ivory pt-36 pb-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
 
         {/* ── Section 1: Philosophy Split ── */}
@@ -30,16 +30,16 @@ export default function AboutPage() {
               <span className="font-label text-[10px] uppercase tracking-widest text-accent-gold">Our Philosophy</span>
             </div>
             
-            <h1 className="font-headline text-5xl md:text-7xl font-light text-stone-900 leading-none">
+            <h1 className="font-headline text-5xl md:text-7xl font-light text-obsidian leading-none">
               A Sanctuary For<br />
               <em className="text-accent-gold font-light not-italic">the senses.</em>
             </h1>
 
-            <p className="font-body text-stone-600 text-sm leading-relaxed max-w-md">
+            <p className="font-body text-obsidian/70 text-sm leading-relaxed max-w-md">
               At Hair Classic, we believe hair is the ultimate organic canvas. We merge architectural precision with fluid movement, creating styles that are distinctly yours.
             </p>
 
-            <p className="font-body text-stone-500 text-xs leading-relaxed max-w-md italic border-l border-accent-gold/30 pl-4">
+            <p className="font-body text-obsidian/50 text-xs leading-relaxed max-w-md italic border-l border-accent-gold/30 pl-4">
               "We provide a calm space away from the noise, focusing on slow beauty and tailored care."
             </p>
           </motion.div>
@@ -71,11 +71,11 @@ export default function AboutPage() {
               <span className="font-label text-[10px] uppercase tracking-widest text-accent-gold">The Craft</span>
             </div>
 
-            <h2 className="font-headline text-4xl md:text-5xl font-light text-stone-900">
+            <h2 className="font-headline text-4xl md:text-5xl font-light text-obsidian">
               Sustainable Luxury.
             </h2>
 
-            <p className="font-body text-stone-600 text-sm leading-relaxed max-w-md">
+            <p className="font-body text-obsidian/70 text-sm leading-relaxed max-w-md">
               We exclusively utilize organic, paraben-free formulations that respect hair health. Our treatments provide deep reconstruction and effortless radiance without structural compromise.
             </p>
 
@@ -102,18 +102,18 @@ export default function AboutPage() {
         </motion.div>
 
         {/* ── CTA Banner ── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="mt-32 bg-surface-container-low border border-accent-gold/10 p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 rounded-sm shadow-sm"
-        >
-          <div>
-            <p className="font-label text-[10px] uppercase tracking-widest text-accent-gold mb-3">Reserve</p>
-            <h2 className="font-headline text-3xl font-light text-stone-900 leading-tight">
-              Ready to meet your artist?
-            </h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            className="mt-32 bg-sand/30 border border-obsidian/10 p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 rounded-sm shadow-sm"
+          >
+            <div>
+              <p className="font-label text-[10px] uppercase tracking-widest text-accent-gold mb-3">Reserve</p>
+              <h2 className="font-headline text-3xl font-light text-obsidian leading-tight">
+                Ready to meet your artist?
+              </h2>
           </div>
           
           <Link href="/client/booking" className="btn-primary flex items-center gap-2">

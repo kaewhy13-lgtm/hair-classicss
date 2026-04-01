@@ -79,7 +79,7 @@ export default function StylistsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-surface pt-36 pb-24 px-6 md:px-12">
+    <div className="min-h-screen bg-ivory pt-36 pb-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         
         {/* ── Header ── */}
@@ -95,25 +95,25 @@ export default function StylistsPage() {
           </motion.div>
 
           <div className="flex flex-wrap items-end justify-between gap-6 mb-6">
-            <motion.h1 variants={fadeUp} custom={1} className="font-headline text-5xl md:text-7xl font-light text-stone-900 leading-none">
+            <motion.h1 variants={fadeUp} custom={1} className="font-headline text-5xl md:text-7xl font-light text-obsidian leading-none">
               Meet the<br />
               <em className="text-accent-gold font-light not-italic">visionaries.</em>
             </motion.h1>
             
             <motion.div variants={fadeUp} custom={2} className="flex items-center gap-2 pb-3">
               <MapPin className="w-4 h-4 text-accent-gold" />
-              <span className="font-label text-xs uppercase tracking-wider text-stone-600">Road Checkpost · Siliguri</span>
+              <span className="font-label text-xs uppercase tracking-wider text-obsidian/60">Road Checkpost · Siliguri</span>
             </motion.div>
           </div>
 
-          <motion.p variants={fadeUp} custom={3} className="font-body text-base text-stone-600 max-w-lg leading-relaxed">
+          <motion.p variants={fadeUp} custom={3} className="font-body text-base text-obsidian/70 max-w-lg leading-relaxed">
             Our stylists merge architectural exactitude with organic movement, creating statements that aren't just seen — they are lived.
           </motion.p>
         </motion.div>
 
         {/* ── Stylists Portfolio List (Asymmetric) ── */}
         {loading ? (
-          <p className="font-label text-sm text-stone-400 text-center py-12">Loading artists...</p>
+          <p className="font-label text-sm text-obsidian/40 text-center py-12">Loading artists...</p>
         ) : (
           <div className="flex flex-col gap-32">
             {stylists.map((stylist, idx) => (
@@ -130,21 +130,21 @@ export default function StylistsPage() {
                     <span className="font-label text-[10px] uppercase tracking-[0.25em] text-accent-gold">
                       {stylist.role}
                     </span>
-                    <h2 className="font-headline text-4xl font-light text-stone-900">{stylist.name}</h2>
-                    <div className="flex items-center gap-2 pt-1 border-b border-stone-200 pb-4">
+                    <h2 className="font-headline text-4xl font-light text-obsidian">{stylist.name}</h2>
+                    <div className="flex items-center gap-2 pt-1 border-b border-obsidian/10 pb-4">
                       <Star className="w-4 h-4 text-accent-gold fill-accent-gold" />
-                      <span className="font-label text-xs text-stone-800 font-medium">{stylist.rating}</span>
-                      <span className="font-label text-[11px] text-stone-400">({stylist.reviews}+ Bookings)</span>
+                      <span className="font-label text-xs text-obsidian/80 font-medium">{stylist.rating}</span>
+                      <span className="font-label text-[11px] text-obsidian/40">({stylist.reviews}+ Bookings)</span>
                     </div>
                   </div>
 
-                  <p className="font-body text-stone-600 text-sm leading-relaxed max-w-md">
+                  <p className="font-body text-obsidian/70 text-sm leading-relaxed max-w-md">
                     {stylist.bio}
                   </p>
 
                   <div className="flex flex-wrap gap-2 pt-2">
                     {stylist.specializations?.map((s: string) => (
-                      <span key={s} className="font-label text-[9px] uppercase tracking-widest border border-accent-gold/20 px-4 py-2 bg-stone-50 text-stone-600 shadow-sm">
+                      <span key={s} className="font-label text-[9px] uppercase tracking-widest border border-accent-gold/20 px-4 py-2 bg-ivory text-obsidian/60 shadow-sm">
                         {s}
                       </span>
                     ))}
@@ -153,10 +153,10 @@ export default function StylistsPage() {
                   <div className="pt-4 flex items-center gap-6">
                     <Link href="/client/booking" className="btn-primary flex items-center gap-2 text-xs tracking-wider">
                       Book {stylist.name.split(" ")[0]}
-                      <ArrowRight className="w-3.h-3" />
+                      <ArrowRight className="w-3 h-3" />
                     </Link>
-                    <button className="p-3 border border-outline-variant hover:border-accent-gold/40 rounded-full transition-colors">
-                      <Instagram className="w-4 h-4 text-stone-700" />
+                    <button className="p-3 border border-obsidian/10 hover:border-accent-gold/40 rounded-full transition-colors">
+                      <Instagram className="w-4 h-4 text-obsidian/70" />
                     </button>
                   </div>
                 </motion.div>
@@ -171,7 +171,7 @@ export default function StylistsPage() {
                     <motion.div 
                       key={i}
                       whileHover={{ scale: 1.02, y: -4 }}
-                      className="group relative overflow-hidden aspect-[3/4] bg-stone-100 shadow-sm border border-stone-200/50"
+                      className="group relative overflow-hidden aspect-[3/4] bg-stone-100 shadow-sm border border-obsidian/5"
                     >
                       <img 
                         src={img} 
@@ -192,11 +192,11 @@ export default function StylistsPage() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="mt-36 bg-surface-container-low border border-accent-gold/10 p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 rounded-sm shadow-sm"
+          className="mt-36 bg-sand/30 border border-obsidian/10 p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 rounded-sm shadow-sm"
         >
           <div>
             <p className="font-label text-[10px] uppercase tracking-widest text-accent-gold mb-3">Recognition</p>
-            <h2 className="font-headline text-3xl font-light text-stone-900 leading-tight">
+            <h2 className="font-headline text-3xl font-light text-obsidian leading-tight">
               Award-winning art,<br />every year since 2018.
             </h2>
           </div>
